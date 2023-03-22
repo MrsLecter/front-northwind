@@ -63,10 +63,11 @@ const StyledLogo = styled.img`
   height: 216px;
   float: right;
   object-fit: scale-down;
-  /* @media (max-width: 480px) {
+
+  @media (max-width: 1023px) {
     width: 100%;
-    height: 45vw;
-  } */
+    height: 100%;
+  }
 `;
 
 const StyledParagraph = styled.p`

@@ -1,2 +1,5 @@
 каждая платформа подключает свой шрифт
 https://css-tricks.com/snippets/css/system-font-stack/
+
+fix:
+ - height in %;
