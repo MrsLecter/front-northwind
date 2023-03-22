@@ -28,8 +28,8 @@ const StyledWrapperMain = styled.section<{ isActive: boolean }>`
   background-color: ${({ theme }) => theme.background.grey};
 
   @media (max-width: 1023px) {
-    width: ${(props) => (props.isActive ? "calc(100% - 240px)" : "100%")};
-    margin-left: ${(props) => (props.isActive ? "240px" : "0px")};
+    width: ${(props) => (!!props.isActive ? "calc(100% - 240px)" : "100%")};
+    margin-left: ${(props) => (!!props.isActive ? "240px" : "0px")};
   }
 `;
 

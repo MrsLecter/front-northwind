@@ -31,25 +31,9 @@ const StyledSidebar = styled.nav<{ active: boolean }>`
   background-color: ${({ theme }) => theme.background.blue};
   overflow-x: hidden;
   transition: 2ms;
-  @media (min-width: 1023px) {
-    width: 240px;
-    ${(props) =>
-      !!props.active
-        ? css`
-            width: "240px";
-          `
-        : css`
-            width: "0px";
-          `};
-  }
 
   @media (max-width: 1023px) {
-    width: 0px;
-    ${(props) =>
-      !!props.active &&
-      css`
-        width: "240px";
-      `};
+    width: ${(props) => (!!props.active ? "240px" : "0px")};
   }
 `;
 
