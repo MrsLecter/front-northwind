@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import ButtonMenu from "./buttonMenu/ButtonMenu";
 import Clock from "./clock/Clock";
@@ -8,6 +9,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+  console.log("render header");
   return (
     <StyledHeader>
       <ButtonMenu clickHandler={toggleSidebar} />

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AppUrlEnum } from "../../../../coonstants";
 import { StyledButtonList, StyledList } from "./ButtonList.styles";
 
@@ -8,56 +8,56 @@ const ButtonList: React.FC = () => {
       <StyledList>
         <p>general</p>
         <li>
-          <Link to={"/"}>
+          <NavLink to={"/"}>
             <span className="material-symbols-outlined">home</span>Home
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to={AppUrlEnum.DASHBOARD}>
+          <NavLink to={AppUrlEnum.DASHBOARD}>
             <span className="material-symbols-outlined">display_settings</span>
             Dashboard
-          </Link>
+          </NavLink>
         </li>
       </StyledList>
       <StyledList>
         <p>backoffice</p>
         <li>
-          <Link to={AppUrlEnum.SUPPLIERS}>
+          <NavLink to={AppUrlEnum.SUPPLIERS}>
             <span className="material-symbols-outlined">inventory_2</span>
             Suppliers
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to={AppUrlEnum.PRODUCTS}>
+          <NavLink to={AppUrlEnum.PRODUCTS}>
             <span className="material-symbols-outlined">
               production_quantity_limits
             </span>
             Products
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to={AppUrlEnum.ORDERS}>
+          <NavLink to={AppUrlEnum.ORDERS}>
             <span className="material-symbols-outlined">shopping_cart</span>
             Orders
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to={AppUrlEnum.EMPLOYEES}>
+          <NavLink to={AppUrlEnum.EMPLOYEES}>
             <span className="material-symbols-outlined">badge</span>
             Employees
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to={AppUrlEnum.CUSTOMERS}>
+          <NavLink to={AppUrlEnum.CUSTOMERS}>
             <span className="material-symbols-outlined">group</span>
             Customers
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to={AppUrlEnum.SEARCH}>
+          <NavLink to={AppUrlEnum.SEARCH}>
             <span className="material-symbols-outlined">search</span>
             Search
-          </Link>
+          </NavLink>
         </li>
       </StyledList>
     </StyledButtonList>

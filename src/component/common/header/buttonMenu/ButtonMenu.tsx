@@ -15,7 +15,7 @@ const ButtonMenu: React.FC<ButtonMenuProps> = ({ clickHandler }) => {
 const StyledButtonMenu = styled.button`
   display: none;
   width: 48px;
-  height: 56px;
+  height: 55px;
   padding: 0px;
   border: none;
   background-color: ${({ theme }) => theme.background.light};

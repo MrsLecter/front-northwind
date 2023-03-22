@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import ButtonList from "./buttonList/ButtonList";
 import Logo from "./logo/Logo";
@@ -7,6 +8,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isActive }) => {
+  console.log("render sidebar");
   return (
     <StyledSidebar active={isActive}>
       <Logo />

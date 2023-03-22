@@ -25,7 +25,7 @@ const StyledWrapperMain = styled.section<{ isActive: boolean }>`
   width: calc(100% - 240px);
   height: 100%;
   margin-left: 240px;
-  background-color: lightgreen;
+  background-color: ${({ theme }) => theme.background.grey};
 
   @media (max-width: 1023px) {
     width: ${(props) => (props.isActive ? "calc(100% - 240px)" : "100%")};

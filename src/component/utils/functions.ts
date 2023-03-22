@@ -1,3 +1,3 @@
 export const getFormattedTimeString = (data: Date): string => {
-  return data.toLocaleTimeString().substring(0, 8);
+  return data.toTimeString().substring(0, 8);
 };
