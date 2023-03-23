@@ -16,6 +16,14 @@ const theme = {
   },
   button: {
     hovered: "#374151",
+    red: "#EF4444",
+  },
+  table: {
+    background: "#fefffe",
+    border: "#f3f5f7",
+    row: "#f8fbfb",
+    row_hovered: "#f3f4f6",
+    links: "#2563EB",
   },
 };
 

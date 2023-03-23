@@ -1,5 +1,10 @@
 каждая платформа подключает свой шрифт
 https://css-tricks.com/snippets/css/system-font-stack/
 
+книга по react spa
+
 fix:
  - height in %;
+ -dropdown on overflow - close when click n background
+ -type for backend responses
+ -generic to components
