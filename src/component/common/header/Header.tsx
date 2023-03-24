@@ -25,7 +25,7 @@ const StyledHeader = styled.header<{ active: boolean }>`
   width: inherit;
   /* width: ${(props) => (props.active ? "calc(100% - 240px)" : "100%")}; */
   height: 55px;
-  padding: 0px 0px 0px 24px;
+  padding: 1px 0px 0px 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

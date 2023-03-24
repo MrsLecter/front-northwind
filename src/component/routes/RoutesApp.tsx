@@ -32,6 +32,10 @@ const RoutesApp = () => {
           path={AppUrlEnum.CURRENT_EMPLOYEE + ":id"}
           element={<DetailedData />}
         />
+        <Route
+          path={AppUrlEnum.CURRENT_CUSTOMER + ":id"}
+          element={<DetailedData />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>

@@ -23,17 +23,15 @@ export const StyledList = styled.ul`
     padding-left: 12px;
   }
 
-  .material-symbols-outlined {
+  & li .material-symbols-outlined {
     font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
   }
   & li:nth-child(1) {
     margin-top: 10px;
   }
 
-  & li:nth-child(2) {
-    .material-symbols-outlined {
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-    }
+  & li:nth-child(3) .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   }
 
   & li {

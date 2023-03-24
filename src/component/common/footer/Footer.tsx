@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 interface IFooterProps {
-  currentPage: string;
-  totalPages: string;
+  currentPage: number;
+  totalPages: number;
 }
 
 const Footer: React.FC<IFooterProps> = ({ currentPage, totalPages }) => {
@@ -14,6 +14,19 @@ const Footer: React.FC<IFooterProps> = ({ currentPage, totalPages }) => {
     </StyledFooter>
   );
 };
+
+export const StyledPagination = styled.div`
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 0px 4px;
+    border: 1px solid ${({ theme }) => theme.table.border};
+    border-radius: 4px;
+  }
+`;
 
 export const StyledPageNav = styled.div`
   width: 71.8px;

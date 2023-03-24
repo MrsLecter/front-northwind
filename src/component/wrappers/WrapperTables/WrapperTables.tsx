@@ -4,8 +4,8 @@ import { StyledWrapperTables, StyledHeader } from "./WrapperTables.styles";
 interface IWrapperTables {
   children: React.ReactNode;
   mainHeader: string;
-  maxPages: number;
-  currentPage: number;
+  maxPages?: number;
+  currentPage?: number;
   isLoading: boolean;
   isError: boolean;
 }
@@ -13,14 +13,14 @@ interface IWrapperTables {
 const WrapperTables: React.FC<IWrapperTables> = ({
   children,
   mainHeader,
-  currentPage,
-  maxPages,
+  currentPage = 1,
+  maxPages = 1,
   isLoading = true,
   isError,
 }) => {
   return (
     <StyledWrapperTables>
-      {isLoading && <p>Loading suppliers...</p>}
+      {isLoading && <p>Loading {mainHeader.toLowerCase()}...</p>}
       {isError && <p>Error occured during request! Try again</p>}
       {!isLoading && !isError && (
         <>

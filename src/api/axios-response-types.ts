@@ -1,8 +1,6 @@
 import {
-  ICustomerObject,
-  IEmployeeObject,
-  ISupplierObject,
-  ISupplierInfo,
+  ICustomersSearchObject,
+  IProductsSearchObject,
 } from "../component/types/commonTypes";
 
 export interface ISQLQuery {
@@ -13,33 +11,19 @@ export interface ISQLQuery {
   timeTaken: number;
 }
 
-export interface ISuppliersResponse {
+export interface IDataResponse<T> {
   currentPage: string;
-  data: ISupplierObject[];
+  data: T[];
   sqlQueries: ISQLQuery[];
   totalPages: number;
 }
 
-export interface ISupplierInfoResponse {
-  data: ISupplierInfo[];
+export interface IDataInfoResponse<T> {
+  data: T[];
   sqlQueries: ISQLQuery[];
 }
 
-export interface IEmployeesResponse {
-  data: IEmployeeObject[];
-  sqlQueries: ISQLQuery[];
-  currentPage: string;
-  totalPages: number;
-}
-
-export interface IEmployeeInfoResponse {
-  data: IEmployeeObject[];
-  sqlQueries: ISQLQuery[];
-}
-
-export interface ICustomersResponse {
-  data: ICustomerObject[];
-  totalPages: 5;
-  currentPage: "1";
+export interface ISearchResult {
+  data: IProductsSearchObject[] | ICustomersSearchObject[];
   sqlQueries: ISQLQuery[];
 }

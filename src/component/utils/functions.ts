@@ -1,17 +1,26 @@
-import { SUPPLIER_INFO } from "../../constants";
-import { ISupplierInfo } from "../types/commonTypes";
+import { HEADERS_DETAILED_SET, HEADERS_SET } from "../../constants";
+import {
+  ICustomersObject,
+  IEmployeesObject,
+  ISupplierInfo,
+  TIncomeData,
+} from "../types/commonTypes";
 
 export const getFormattedTimeString = (data: Date): string => {
   return data.toTimeString().substring(0, 8);
 };
 
-export const getSupplierInfoFiltered = (info: ISupplierInfo) => {
+export const getInfoFiltered = (
+  data: ISupplierInfo | IEmployeesObject | ICustomersObject,
+  info: TIncomeData
+): [string, string | number][][] => {
+  const headerInfo = HEADERS_DETAILED_SET[info];
   let fieldCount = 0;
-  let filteredFields: [string, string][] = [];
-  Object.entries(info).forEach(([key, value], index) => {
+  let filteredFields: [string, string | number][] = [];
+  Object.entries(data).forEach(([key, value], index) => {
     if (index !== 0 && !!value) {
       fieldCount++;
-      filteredFields.push([SUPPLIER_INFO[index], value]);
+      filteredFields.push([headerInfo[index], value]);
     }
   });
   console.log(filteredFields);

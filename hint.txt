@@ -1,7 +1,8 @@
 каждая платформа подключает свой шрифт
 https://css-tricks.com/snippets/css/system-font-stack/
 
-книга по react spa
+порядок свойств объекта сохраняется
+https://stackoverflow.com/questions/5525795/does-javascript-guarantee-object-property-order
 
 fix:
  - height in %;

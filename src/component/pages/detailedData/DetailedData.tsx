@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import tableService from "../../../api/table-service";
-import { getSupplierInfoFiltered } from "../../utils/functions";
+import { TIncomeData } from "../../types/commonTypes";
+import { getInfoFiltered } from "../../utils/functions";
 import DataObjectRow from "./DataObjectRow/DataObjectRow";
 import {
   StyledDetailedData,
@@ -24,17 +25,21 @@ const DetailedData: React.FC = () => {
   //   currentPath.split("/")[1],
   //   currentPath.split("/")[2]
   // );
-  const currentHeader = currentPath.split("/")[1];
+
+
+  const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
   console.log("currentPath");
 
   useEffect(() => {
-    const getDetailSuppliersInfo = async () => {
+    const getDetailedInfo = async () => {
       const response = await tableService.getSupplierInfo({ id: +currentID });
       console.log("response", response);
       if (response.status === 200) {
-        const [leftCol, rightCol] = getSupplierInfoFiltered(
-          response.data.data[0]
+        console.log("currentHeader", currentHeader)
+        const [leftCol, rightCol] = getInfoFiltered(
+          response.data.data[0],
+          currentHeader
         );
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
@@ -45,7 +50,7 @@ const DetailedData: React.FC = () => {
       return response;
     };
     setLoading(true);
-    getDetailSuppliersInfo();
+    getDetailedInfo();
     setTimeout(() => {
       setLoading(false);
     }, 1000);

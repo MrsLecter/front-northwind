@@ -19,15 +19,9 @@ export const StyledHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.table.background};
-`;
 
-export const StyledPagination = styled.div`
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    padding: 8px 16px;
-    margin: 0px 4px;
+  img {
+    width: 24px;
+    height: 24px;
   }
 `;

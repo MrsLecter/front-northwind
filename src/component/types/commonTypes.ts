@@ -1,4 +1,4 @@
-export interface ISupplierObject {
+export interface ISuppliersObject {
   id: number;
   companyName: string;
   name: string;
@@ -22,27 +22,36 @@ export interface ISupplierInfo {
   HomePage: string | null;
 }
 
-export interface IEmployeeObject {
-  EmployeeID: number;
-  LastName: string;
-  FirstName: string;
-  Title: string;
-  TitleOfCourtesy: string;
-  BirthDate: string;
-  HireDate: string;
-  Address: string;
-  City: string;
-  Region: string;
-  PostalCode: string;
-  Country: string;
-  HomePhone: string;
-  Extension: number;
-  Notes: string;
-  ReportsTo: number;
-  reportsName: string;
+export interface IProductsObject {
+  id: number;
+  name: string;
+  qt: string;
+  price: number;
+  stock: number;
+  orders: number;
 }
 
-export interface ICustomerObject {
+export interface IOrdersObject {
+  TotalProductsPrice: number;
+  TotalProductsItems: number;
+  TotalProducts: string;
+  OrderId: number;
+  Shipped: string;
+  ShipName: string;
+  City: string;
+  Country: string;
+}
+
+export interface IEmployeesObject {
+  id: number;
+  name: string;
+  title: string;
+  city: string;
+  phone: string;
+  country: string;
+}
+
+export interface ICustomersObject {
   id: string;
   company: string;
   name: string;
@@ -50,3 +59,25 @@ export interface ICustomerObject {
   city: string;
   country: string;
 }
+
+export interface IProductsSearchObject {
+  id: number;
+  name: string;
+  quantPerUnit: string;
+  price: number;
+  stock: number;
+}
+
+export interface ICustomersSearchObject {
+  id: string;
+  name: string;
+  contact: string;
+  title: string;
+  phone: string;
+}
+export type TIncomeData =
+  | "supplier"
+  | "product"
+  | "order"
+  | "employee"
+  | "customer";

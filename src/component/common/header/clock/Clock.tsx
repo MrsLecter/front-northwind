@@ -20,6 +20,8 @@ const Clock: React.FC = () => {
 const StyledClock = styled.div`
   display: block;
   padding: 8px 12px;
+  margin-top: 1px;
+  margin-left: 24px;
   font-size: 16px;
   color: ${({ theme }) => theme.text.second};
 

@@ -1,171 +1,82 @@
-const proddata = [
-  {
-    id: 1,
-    name: "Chai",
-    qt: "10 boxes x 20 bags",
-    price: 18,
-    stock: 39,
-    orders: 0,
-  },
-  {
-    id: 2,
-    name: "Chang",
-    qt: "24 - 12 oz bottles",
-    price: 19,
-    stock: 17,
-    orders: 40,
-  },
-  {
-    id: 3,
-    name: "Aniseed Syrup",
-    qt: "12 - 550 ml bottles",
-    price: 10,
-    stock: 13,
-    orders: 70,
-  },
-  {
-    id: 4,
-    name: "Chef Anton's Cajun Seasoning",
-    qt: "48 - 6 oz jars",
-    price: 22,
-    stock: 53,
-    orders: 0,
-  },
-  {
-    id: 5,
-    name: "Chef Anton's Gumbo Mix",
-    qt: "36 boxes",
-    price: 21.35,
-    stock: 0,
-    orders: 0,
-  },
-  {
-    id: 6,
-    name: "Grandma's Boysenberry Spread",
-    qt: "12 - 8 oz jars",
-    price: 25,
-    stock: 120,
-    orders: 0,
-  },
-  {
-    id: 7,
-    name: "Uncle Bob's Organic Dried Pears",
-    qt: "12 - 1 lb pkgs.",
-    price: 30,
-    stock: 15,
-    orders: 0,
-  },
-  {
-    id: 8,
-    name: "Northwoods Cranberry Sauce",
-    qt: "12 - 12 oz jars",
-    price: 40,
-    stock: 6,
-    orders: 0,
-  },
-  {
-    id: 9,
-    name: "Mishi Kobe Niku",
-    qt: "18 - 500 g pkgs.",
-    price: 97,
-    stock: 29,
-    orders: 0,
-  },
-  {
-    id: 10,
-    name: "Ikura",
-    qt: "12 - 200 ml jars",
-    price: 31,
-    stock: 31,
-    orders: 0,
-  },
-  {
-    id: 11,
-    name: "Queso Cabrales",
-    qt: "1 kg pkg.",
-    price: 21,
-    stock: 22,
-    orders: 30,
-  },
-  {
-    id: 12,
-    name: "Queso Manchego La Pastora",
-    qt: "10 - 500 g pkgs.",
-    price: 38,
-    stock: 86,
-    orders: 0,
-  },
-  {
-    id: 13,
-    name: "Konbu",
-    qt: "2 kg box",
-    price: 6,
-    stock: 24,
-    orders: 0,
-  },
-  {
-    id: 14,
-    name: "Tofu",
-    qt: "40 - 100 g pkgs.",
-    price: 23.25,
-    stock: 35,
-    orders: 0,
-  },
-  {
-    id: 15,
-    name: "Genen Shouyu",
-    qt: "24 - 250 ml bottles",
-    price: 15.5,
-    stock: 39,
-    orders: 0,
-  },
-  {
-    id: 16,
-    name: "Pavlova",
-    qt: "32 - 500 g boxes",
-    price: 17.45,
-    stock: 29,
-    orders: 0,
-  },
-  {
-    id: 17,
-    name: "Alice Mutton",
-    qt: "20 - 1 kg tins",
-    price: 39,
-    stock: 0,
-    orders: 0,
-  },
-  {
-    id: 18,
-    name: "Carnarvon Tigers",
-    qt: "16 kg pkg.",
-    price: 62.5,
-    stock: 42,
-    orders: 0,
-  },
-  {
-    id: 19,
-    name: "Teatime Chocolate Biscuits",
-    qt: "10 boxes x 12 pieces",
-    price: 9.2,
-    stock: 25,
-    orders: 0,
-  },
-  {
-    id: 20,
-    name: "Sir Rodney's Marmalade",
-    qt: "30 gift boxes",
-    price: 81,
-    stock: 40,
-    orders: 0,
-  },
-];
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import tableService from "../../../api/table-service";
+import { AppUrlEnum, HEADERS_SET, PAGE_URLS } from "../../../constants";
+import { StandartTable } from "../../common/table/Table";
+import { IProductsObject } from "../../types/commonTypes";
+import WrapperTables from "../../wrappers/WrapperTables/WrapperTables";
 
 const Products: React.FC = () => {
+  const [productsData, setProductsData] = useState<IProductsObject[]>([]);
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await tableService.getTableData<IProductsObject>({
+        url: PAGE_URLS.products,
+        page: 1,
+      });
+      if (response.status === 200) {
+        setProductsData(response.data.data);
+        console.log(response.data.data);
+      } else {
+        setError(true);
+      }
+      console.log(response);
+    };
+    setLoading(true);
+    getData();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
-    <div>
-      <h1>Products</h1>
-    </div>
+    <WrapperTables
+      isLoading={loading}
+      isError={error}
+      mainHeader={"Products"}
+      currentPage={1}
+      maxPages={2}
+    >
+      {!loading && productsData && (
+        <StandartTable>
+          <thead>
+            {HEADERS_SET.products.map((item) => (
+              <th>{item}</th>
+            ))}
+          </thead>
+          <tbody>
+            {productsData.map((object) => {
+              return (
+                <tr key={object.id}>
+                  <td data-label={HEADERS_SET.products_small[0]}>
+                    <Link to={AppUrlEnum.CURRENT_SUPPLIER + object.id}>
+                      {object.name}
+                    </Link>
+                  </td>
+                  <td data-label={HEADERS_SET.products_small[1]}>
+                    {object.qt}
+                  </td>
+                  <td data-label={HEADERS_SET.products_small[2]}>
+                    ${object.price}
+                  </td>
+                  <td data-label={HEADERS_SET.products_small[3]}>
+                    {object.stock}
+                  </td>
+                  <td data-label={HEADERS_SET.products_small[4]}>
+                    {object.orders}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </StandartTable>
+      )}
+      {!productsData && <p>Content not loaded! Try again...</p>}
+    </WrapperTables>
   );
 };
 

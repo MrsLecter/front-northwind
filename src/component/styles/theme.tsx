@@ -25,6 +25,13 @@ const theme = {
     row_hovered: "#f3f4f6",
     links: "#2563EB",
   },
+  input: {
+    focus: "#8db8fd",
+    border_hovered: "#9ca2ae",
+    border: "#d6dbded8",
+    checkmark: "#3a82f7",
+    background: " #fefeff",
+  },
 };
 
 export default theme;

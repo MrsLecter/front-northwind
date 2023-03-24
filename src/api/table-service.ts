@@ -1,22 +1,24 @@
 import axios, { AxiosResponse } from "axios";
-import { PAGE_URLS, DETAIL_URLS } from "../constants";
 import {
-  IEmployeeInfoResponse,
-  IEmployeesResponse,
-  ISupplierInfoResponse,
-  ISuppliersResponse,
+  IDataInfoResponse,
+  IDataResponse,
+  ISearchResult,
 } from "./axios-response-types";
+import { SEARCH_URL } from "../constants";
 
 class TableService {
-  public async getSuppliers({
+  public async getTableData<T>({
+    url,
     page,
   }: {
+    url: string;
     page: number;
-  }): Promise<AxiosResponse<ISuppliersResponse, any>> {
+  }): Promise<AxiosResponse<IDataResponse<T>, any>> {
     try {
-      const response = await axios.get<ISuppliersResponse>(
-        PAGE_URLS.suppliers + page + "?count=true"
+      const response = await axios.get<IDataResponse<T>>(
+        url + page + "?count=true"
       );
+      console.log("table info" + url, response);
       return response;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
@@ -28,15 +30,16 @@ class TableService {
     }
   }
 
-  public async getSupplierInfo({
+  public async getDetailedInfo<T>({
     id,
+    url,
   }: {
     id: number;
-  }): Promise<AxiosResponse<ISupplierInfoResponse, any>> {
+    url: string;
+  }): Promise<AxiosResponse<IDataInfoResponse<T>, any>> {
     try {
-      const response = await axios.get<ISupplierInfoResponse>(
-        DETAIL_URLS.supplier + id
-      );
+      const response = await axios.get<IDataInfoResponse<T>>(url + id);
+      console.log("detailed info" + url, response);
       return response;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
@@ -48,35 +51,20 @@ class TableService {
     }
   }
 
-  public async getEmployees({
-    page,
+  public async getSearchResult({
+    searchString,
+    searchTable,
   }: {
-    page: number;
-  }): Promise<AxiosResponse<IEmployeesResponse, any>> {
+    searchString: string;
+    searchTable: "products" | "customers";
+  }): Promise<AxiosResponse<ISearchResult, any>> {
     try {
-      const response = await axios.get<IEmployeesResponse>(
-        PAGE_URLS.employees + page + "?count=true"
-      );
-      return response;
-    } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error message: ", error.message);
-      } else {
-        console.error("Unexpected error: ", error);
-      }
-      return error;
-    }
-  }
-
-  public async getEmployeeInfo({
-    id,
-  }: {
-    id: number;
-  }): Promise<AxiosResponse<IEmployeeInfoResponse, any>> {
-    try {
-      const response = await axios.get<IEmployeeInfoResponse>(
-        DETAIL_URLS.employee + id
-      );
+      const searchUrl =
+        searchTable === "products"
+          ? SEARCH_URL.search_products
+          : SEARCH_URL.search_customers;
+      const response = await axios.get<ISearchResult>(searchUrl + searchString);
+      console.log("search info" + searchUrl, searchString);
       return response;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
