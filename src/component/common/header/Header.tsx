@@ -6,12 +6,13 @@ import LinksMenu from "./linksMenu/LinksMenu";
 
 interface HeaderProps {
   toggleSidebar: () => void;
+  isActive: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+const Header: React.FC<HeaderProps> = ({ toggleSidebar, isActive }) => {
   console.log("render header");
   return (
-    <StyledHeader>
+    <StyledHeader active={isActive}>
       <ButtonMenu clickHandler={toggleSidebar} />
       <Clock />
       <LinksMenu />
@@ -19,15 +20,18 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   );
 };
 
-const StyledHeader = styled.header`
-  width: 100%;
+const StyledHeader = styled.header<{ active: boolean }>`
+  position: fixed;
+  width: inherit;
+  /* width: ${(props) => (props.active ? "calc(100% - 240px)" : "100%")}; */
   height: 55px;
-  padding: 0px 0px 0px 24px;
+  padding: 1px 0px 0px 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.background.light};
+  box-shadow: 0px 0.5px 2px ${({ theme }) => theme.table.border};
 
   @media (max-width: 1023px) {
     padding: 0px;

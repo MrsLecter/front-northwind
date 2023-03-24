@@ -1,8 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { AppUrlEnum } from "../../coonstants";
+import { AppUrlEnum } from "../../constants";
 import Layout from "../layouts/Layout";
 import Customers from "../pages/customers/Customers";
 import Dashboard from "../pages/dashboard/Dashboard";
+import DetailedData from "../pages/detailedData/DetailedData";
 import Employees from "../pages/employees/Employees";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/home/Home";
@@ -23,6 +24,18 @@ const RoutesApp = () => {
         <Route path={AppUrlEnum.EMPLOYEES} element={<Employees />} />
         <Route path={AppUrlEnum.CUSTOMERS} element={<Customers />} />
         <Route path={AppUrlEnum.SEARCH} element={<Search />} />
+        <Route
+          path={AppUrlEnum.CURRENT_SUPPLIER + ":id"}
+          element={<DetailedData />}
+        />
+        <Route
+          path={AppUrlEnum.CURRENT_EMPLOYEE + ":id"}
+          element={<DetailedData />}
+        />
+        <Route
+          path={AppUrlEnum.CURRENT_CUSTOMER + ":id"}
+          element={<DetailedData />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>

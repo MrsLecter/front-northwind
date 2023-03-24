@@ -30,7 +30,7 @@ const StyledSidebar = styled.nav<{ active: boolean }>`
   align-items: flex-start;
   background-color: ${({ theme }) => theme.background.blue};
   overflow-x: hidden;
-  transition: 2ms;
+  
 
   @media (max-width: 1023px) {
     width: ${(props) => (!!props.active ? "240px" : "0px")};

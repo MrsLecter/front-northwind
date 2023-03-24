@@ -16,6 +16,21 @@ const theme = {
   },
   button: {
     hovered: "#374151",
+    red: "#EF4444",
+  },
+  table: {
+    background: "#fefffe",
+    border: "#f3f5f7",
+    row: "#f8fbfb",
+    row_hovered: "#f3f4f6",
+    links: "#2563EB",
+  },
+  input: {
+    focus: "#8db8fd",
+    border_hovered: "#9ca2ae",
+    border: "#d6dbded8",
+    checkmark: "#3a82f7",
+    background: " #fefeff",
   },
 };
 

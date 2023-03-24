@@ -48,7 +48,7 @@ const StyledButton = styled.button<{ active: boolean }>`
   display: block;
   width: 169.25px;
   height: 40px;
-  padding: 8px 0px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
