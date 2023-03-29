@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const StyledWrapperTables = styled.div`
   width: 100%;
-  height: 100%;
   padding: 24px;
 `;
 
@@ -21,6 +20,7 @@ export const StyledHeader = styled.div`
   background-color: ${({ theme }) => theme.table.background};
 
   img {
+    margin-top: -6px;
     width: 24px;
     height: 24px;
   }

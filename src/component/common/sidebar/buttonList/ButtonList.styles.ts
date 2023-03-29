@@ -16,6 +16,7 @@ export const StyledList = styled.ul`
   margin: 0px;
   font-size: 12px;
   padding: 0px;
+  margin-top: 2px;
   text-transform: uppercase;
   color: ${({ theme }) => theme.text.second_light};
 

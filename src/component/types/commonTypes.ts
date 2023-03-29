@@ -31,6 +31,30 @@ export interface IProductsObject {
   orders: number;
 }
 
+export interface IProductInfo {
+  productName: string;
+  supplierId: number;
+  supplier: string;
+  qtyPerUnit: string;
+  unitPrice: number;
+  unitsInStock: number;
+  unitsInOrder: number;
+  reorderLevel: number;
+  discontinued: number;
+}
+
+export interface IProductInfoCustom {
+  id: number;
+  productName: string;
+  supplier: string;
+  qtyPerUnit: string;
+  unitPrice: number;
+  unitsInStock: number;
+  unitsInOrder: number;
+  reorderLevel: number;
+  discontinued: number;
+}
+
 export interface IOrdersObject {
   TotalProductsPrice: number;
   TotalProductsItems: number;
@@ -42,6 +66,52 @@ export interface IOrdersObject {
   Country: string;
 }
 
+export interface IOrderInfo {
+  CustomerId: string;
+  ShipName: string;
+  TotalProductsDiscount: number;
+  TotalProductsPrice: number;
+  TotalProductsItems: number;
+  TotalProducts: string;
+  CompanyShipper: string;
+  Freight: number;
+  OrderDate: string;
+  RequiredDate: string;
+  ShippedDate: string;
+  ShipCity: string;
+  ShipRegion: string;
+  PostalCode: string;
+  ShipCountry: string;
+}
+
+export interface IOrderInfoCustom {
+  id: string;
+  customerId: string;
+  shipName: string;
+  totalProducts: string;
+  totalQuantity: number;
+  totalPrice: number;
+  totalDiscount: number;
+  shipVia: string;
+  freight: number;
+  orderDate: string;
+  requiredDate: string;
+  shippedDate: string;
+  shipCity: string;
+  shipRegion: string;
+  shipPostalCode: string;
+  shipCountry: string;
+}
+
+export interface IDetailedOrdersProducts {
+  Discount: number;
+  OrderPrice: number;
+  ProductId: number;
+  ProductName: string;
+  Quantity: number;
+  TotalPrice: number;
+}
+
 export interface IEmployeesObject {
   id: number;
   name: string;
@@ -51,6 +121,43 @@ export interface IEmployeesObject {
   country: string;
 }
 
+export interface IEmployeeInfo {
+  EmployeeID: number;
+  LastName: string;
+  FirstName: string;
+  Title: string;
+  TitleOfCourtesy: string;
+  BirthDate: string;
+  HireDate: string;
+  Address: string;
+  City: string;
+  Region: string;
+  PostalCode: string;
+  Country: string;
+  HomePhone: string;
+  Extension: number;
+  Notes: string;
+  ReportsTo: number;
+  reportsName: string;
+}
+
+export interface IEmployeeInfoCustom {
+  id: number;
+  name: string;
+  title: string;
+  titleOfCourtesy: string;
+  birthDate: string;
+  hireDate: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  homePhone: string;
+  extension: number;
+  notes: string;
+  reportsTo: string;
+}
+
 export interface ICustomersObject {
   id: string;
   company: string;
@@ -58,6 +165,20 @@ export interface ICustomersObject {
   title: string;
   city: string;
   country: string;
+}
+
+export interface ICustomerInfo {
+  CustomerID: string;
+  CompanyName: string;
+  ContactName: string;
+  ContactTitle: string;
+  Address: string;
+  City: string;
+  Region: null;
+  PostalCode: string;
+  Country: string;
+  Phone: string;
+  Fax: string;
 }
 
 export interface IProductsSearchObject {
@@ -75,9 +196,26 @@ export interface ICustomersSearchObject {
   title: string;
   phone: string;
 }
+
 export type TIncomeData =
   | "supplier"
   | "product"
   | "order"
   | "employee"
   | "customer";
+
+export interface ISQLQuery {
+  sql: string;
+  sqlType: string;
+  resultsCount: number;
+  timeStart: string;
+  timeTaken: number;
+}
+
+export interface IDashboardData {
+  queryCount: number;
+  resultsCount: number;
+  selectQuery: number;
+  selectWhereQuery: number;
+  selectJoinQuery: number;
+}

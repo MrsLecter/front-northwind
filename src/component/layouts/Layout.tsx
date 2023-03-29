@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Sidebar from "../common/sidebar/Sidebar";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import WrapperMain from "../wrappers/WrapperMain/WrapperMain";
+import WrapperMain from "../wrappers/wrapperMain/WrapperMain";
 
 const Layout = () => {
   const [isActiveSidebar, toggleSidebar] = useState<boolean>(true);

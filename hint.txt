@@ -5,7 +5,7 @@ https://css-tricks.com/snippets/css/system-font-stack/
 https://stackoverflow.com/questions/5525795/does-javascript-guarantee-object-property-order
 
 fix:
- - height in %;
- -dropdown on overflow - close when click n background
- -type for backend responses
- -generic to components
+ -retortsto state
+
+ сравнить данные постмана и сайта
+ мобильное разрешение orders

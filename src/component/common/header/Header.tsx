@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import ButtonMenu from "./buttonMenu/ButtonMenu";
 import Clock from "./clock/Clock";
 import LinksMenu from "./linksMenu/LinksMenu";
@@ -25,7 +26,7 @@ const StyledHeader = styled.header<{ active: boolean }>`
   width: inherit;
   /* width: ${(props) => (props.active ? "calc(100% - 240px)" : "100%")}; */
   height: 55px;
-  padding: 1px 0px 0px 0px;
+  padding: 1px 12px 0px 12px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

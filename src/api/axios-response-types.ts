@@ -1,15 +1,9 @@
 import {
   ICustomersSearchObject,
+  IDetailedOrdersProducts,
   IProductsSearchObject,
+  ISQLQuery,
 } from "../component/types/commonTypes";
-
-export interface ISQLQuery {
-  sql: string;
-  sqlType: string;
-  resultsCount: number;
-  timeStart: string;
-  timeTaken: number;
-}
 
 export interface IDataResponse<T> {
   currentPage: string;
@@ -20,6 +14,7 @@ export interface IDataResponse<T> {
 
 export interface IDataInfoResponse<T> {
   data: T[];
+  productsInfo?: IDetailedOrdersProducts[];
   sqlQueries: ISQLQuery[];
 }
 

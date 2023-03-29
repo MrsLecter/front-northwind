@@ -9,12 +9,14 @@ export enum AppUrlEnum {
   EMPLOYEES = "/employees",
   CURRENT_EMPLOYEE = "/employee/",
   CUSTOMERS = "/customers",
-  CURRENT_CUSTOMER = "/customer",
+  CURRENT_CUSTOMER = "/customer/",
   SEARCH = "/search",
 }
 
-export const CELL_IMG_URL = (name: string) =>
-  `https://avatars.dicebear.com/v2/initials/${name}.svg`;
+export const CELL_IMG_URL = (name: string) => {
+  const formattedName = name.replaceAll(" ", "-").replace(/[-]+[\w+]+[-]/, "-");
+  return `https://avatars.dicebear.com/v2/initials/${formattedName}.svg`;
+};
 
 const BASE_URL = "https://northwind-yulia.onrender.com";
 
@@ -95,6 +97,7 @@ const SUPPLIER_INFO = [
   "Home Page",
 ];
 const PRODUCT_INFO = [
+  "id",
   "Product Name",
   "Supplier",
   "Quantity Per Unit",
@@ -105,6 +108,7 @@ const PRODUCT_INFO = [
   "Discontinued",
 ];
 const ORDER_INFO = [
+  "id",
   "Customer Id",
   "Ship Name",
   "Total Products",
@@ -138,13 +142,14 @@ const EMPLOYEE_INFO = [
   "Resports To",
 ];
 const CUSTOMER_INFO = [
+  "Customer Id",
   "Company Name",
   "Contact Name",
   "Contact Title",
   "Address",
   "City",
-  "Postal Code",
   "Region",
+  "Postal Code",
   "Country",
   "Phone",
   "Fax",
@@ -170,3 +175,11 @@ export const HEADERS_DETAILED_SET = {
   employee: EMPLOYEE_INFO,
   customer: CUSTOMER_INFO,
 };
+
+export const HEADERS_PRODUCTS_IN_ORDER = [
+  "Product",
+  "Quantity",
+  "OrderPrice",
+  "TotalPrice",
+  "Discount",
+];

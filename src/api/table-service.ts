@@ -19,6 +19,7 @@ class TableService {
         url + page + "?count=true"
       );
       console.log("table info" + url, response);
+
       return response;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
@@ -34,7 +35,7 @@ class TableService {
     id,
     url,
   }: {
-    id: number;
+    id: number | string;
     url: string;
   }): Promise<AxiosResponse<IDataInfoResponse<T>, any>> {
     try {

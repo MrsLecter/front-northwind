@@ -9,23 +9,26 @@ import {
 } from "../../../constants";
 import { StandartTable } from "../../common/table/Table";
 import { IEmployeesObject } from "../../types/commonTypes";
-import WrapperTables from "../../wrappers/WrapperTables/WrapperTables";
+import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";
+import Footer from "../../common/footer/Footer";
 
 const Employees: React.FC = () => {
   const [employeesData, setEmployeesData] = useState<IEmployeesObject[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageAmount, setPageAmount] = useState<number>(1);
 
   useEffect(() => {
     const getData = async () => {
       const response = await tableService.getTableData<IEmployeesObject>({
         url: PAGE_URLS.employees,
-        page: 1,
+        page: currentPage,
       });
       if (response.status === 200) {
         setEmployeesData(response.data.data);
+        setCurrentPage(parseInt(response.data.currentPage));
+        setPageAmount(response.data.totalPages);
         console.log(response.data.data);
       } else {
         setError(true);
@@ -38,7 +41,7 @@ const Employees: React.FC = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [currentPage, pageAmount]);
 
   return (
     <WrapperTables
@@ -63,12 +66,12 @@ const Employees: React.FC = () => {
                   <tr key={object.id}>
                     <td data-label={""}>
                       <img
-                        src={CELL_IMG_URL(object.name.replace(" ", "-"))}
+                        src={CELL_IMG_URL(object.name)}
                         alt="imageCell.svg"
                       />
                     </td>
                     <td data-label={HEADERS_SET.employees_small[0]}>
-                      <Link to={AppUrlEnum.CURRENT_SUPPLIER + object.id}>
+                      <Link to={AppUrlEnum.CURRENT_EMPLOYEE + object.id}>
                         {object.name}
                       </Link>
                     </td>
@@ -90,8 +93,14 @@ const Employees: React.FC = () => {
               })}
             </tbody>
           </StandartTable>
+          <Footer
+            currentPage={currentPage}
+            totalPages={pageAmount}
+            handleChangePage={setCurrentPage}
+          />
         </>
       )}
+      {!employeesData && <p>Content not loaded! Try again...</p>}
     </WrapperTables>
   );
 };

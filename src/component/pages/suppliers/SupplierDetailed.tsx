@@ -1,46 +1,53 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
 import tableService from "../../../api/table-service";
-import { TIncomeData } from "../../types/commonTypes";
-import { getInfoFiltered } from "../../utils/functions";
-import DataObjectRow from "./DataObjectRow/DataObjectRow";
 import {
-  StyledDetailedData,
-  StyledDetailedHeader,
+  IEmployeeInfo,
+  IEmployeeInfoCustom,
+  ISupplierInfo,
+  TIncomeData,
+} from "../../types/commonTypes";
+import { DETAIL_URLS } from "../../../constants";
+import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
+import { getInfoFiltered } from "../../utils/functions";
+import {
+  DetailedFooter,
+  DetailedHeader,
+} from "../../common/detailedPageComponents/detailedPageComponents";
+import {
   StyledDetailedContainer,
   StyledColumn,
-  StyledDetailedFooter,
-} from "./DetailedData.styles";
+} from "../../common/detailedPageComponents/detailedPageComponents.styles";
+import {
+  DataObjectLink,
+  DataObjectRow,
+} from "../../common/dataObjectRow/DataObjectRow";
 
-const DetailedData: React.FC = () => {
-  const location = useLocation();
+const SupplierDetailed: React.FC = () => {
   const currentPath = location.pathname;
-  const navigate = useNavigate();
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<boolean>(false);
-  const [leftColumn, setLeftColumn] = useState<[string, string][]>([]);
-  const [rightColumn, setRightColumn] = useState<[string, string][]>([]);
-  // console.log(
-  //   currentPath.split("/"),
-  //   currentPath.split("/")[1],
-  //   currentPath.split("/")[2]
-  // );
-
+  const [leftColumn, setLeftColumn] = useState<[string, string | number][]>([]);
+  const [rightColumn, setRightColumn] = useState<[string, string | number][]>(
+    []
+  );
+  let reportsToId: number;
 
   const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
-  console.log("currentPath");
+  console.log(currentPath, currentHeader, currentID);
 
   useEffect(() => {
     const getDetailedInfo = async () => {
-      const response = await tableService.getSupplierInfo({ id: +currentID });
+      const response = await tableService.getDetailedInfo<ISupplierInfo>({
+        id: currentID,
+        url: DETAIL_URLS.supplier,
+      });
       console.log("response", response);
       if (response.status === 200) {
-        console.log("currentHeader", currentHeader)
-        const [leftCol, rightCol] = getInfoFiltered(
-          response.data.data[0],
-          currentHeader
-        );
+        const [leftCol, rightCol] = getInfoFiltered({
+          data: response.data.data[0],
+          info: "supplier",
+        });
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
         console.log("leftCol, rightCol", leftCol, rightCol);
@@ -58,15 +65,11 @@ const DetailedData: React.FC = () => {
 
   return (
     <StyledDetailedData>
-      {isLoading && <p>Loading suppliers...</p>}
+      {isLoading && <p>Loading detailed supplier...</p>}
       {isError && <p>Error occured during request! Try again</p>}
       {!isLoading && !isError && (
         <>
-          <StyledDetailedHeader>
-            <span className="material-symbols-outlined">ballot</span>
-            {currentHeader[0].toUpperCase() + currentHeader.substring(1)}
-            &nbsp;information
-          </StyledDetailedHeader>
+          <DetailedHeader header={currentHeader} />
           <StyledDetailedContainer>
             <StyledColumn>
               {leftColumn.map((item) => (
@@ -79,15 +82,12 @@ const DetailedData: React.FC = () => {
               ))}
             </StyledColumn>
           </StyledDetailedContainer>
-          <StyledDetailedFooter>
-            <button type="button" onClick={() => navigate(-1)}>
-              Go back
-            </button>
-          </StyledDetailedFooter>
+
+          <DetailedFooter />
         </>
       )}
     </StyledDetailedData>
   );
 };
 
-export default DetailedData;
+export default SupplierDetailed;

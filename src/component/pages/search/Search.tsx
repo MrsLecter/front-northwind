@@ -5,7 +5,7 @@ import {
   ICustomersSearchObject,
   IProductsSearchObject,
 } from "../../types/commonTypes";
-import WrapperSearch from "../../wrappers/WrapperSearch/WrapperSearch";
+import WrapperSearch from "../../wrappers/wrapperSearch/WrapperSearch";
 import {
   ResultCustomersItem,
   ResultProductsItem,
@@ -94,8 +94,8 @@ const Search: React.FC = () => {
           searchProductsResults.map((item, index) => {
             return (
               <ResultProductsItem
-                id={+item.id}
-                count={index}
+                id={item.id}
+                count={index + 1}
                 header={item.name}
                 quantity={item.quantPerUnit}
                 price={item.price}
@@ -107,9 +107,9 @@ const Search: React.FC = () => {
           searchCustomersResults.map((item, index) => {
             return (
               <ResultCustomersItem
-                id={+item.id}
+                id={item.id}
                 contact={item.contact}
-                count={index}
+                count={index + 1}
                 header={item.name}
                 title={item.title}
                 phone={item.phone}
@@ -145,7 +145,8 @@ const StyledSearchPanel = styled.div`
   position: relative;
   width: 100%;
   height: 40px;
-  margin-bottom: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 
   span {
     position: absolute;
@@ -161,6 +162,7 @@ const StyledRadioPanel = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  margin-top: 14px;
 
   label:nth-child(1) {
     margin-right: 12px;
@@ -168,7 +170,7 @@ const StyledRadioPanel = styled.div`
 
   label {
     display: block;
-    padding-left: 35px;
+    padding-left: 28px;
     margin-bottom: 10px;
     cursor: pointer;
     font-size: 16px;
@@ -193,7 +195,7 @@ const StyledRadioPanel = styled.div`
   }
 
   label:nth-child(2) span {
-    left: 120px;
+    left: 106px;
   }
 
   label:hover input ~ span {
@@ -229,6 +231,7 @@ const StyledResultsHeader = styled.div`
 `;
 
 const SearchReultsOutput = styled.div`
+  margin-top: -7px;
   p {
     font-size: 16px;
     font-weight: 400;

@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const StyledDetailedData = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  border: 1px solid ${({ theme }) => theme.table.border};
-`;
-
 export const StyledDetailedHeader = styled.div`
   width: 100%;
   height: 48px;
@@ -25,6 +14,9 @@ export const StyledDetailedHeader = styled.div`
   font-size: 16px;
   background-color: ${({ theme }) => theme.background.light};
 
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+  }
   span {
     margin-right: 8px;
   }
@@ -42,6 +34,7 @@ export const StyledDetailedFooter = styled.div`
   background-color: ${({ theme }) => theme.background.light};
 
   button {
+    height: 42px;
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -51,9 +44,25 @@ export const StyledDetailedFooter = styled.div`
   }
 `;
 
+export const StyledDetailedData = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 20px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid ${({ theme }) => theme.table.border};
+
+  p {
+    width: 100%;
+    text-align: left;
+  }
+`;
+
 export const StyledDetailedContainer = styled.div`
   width: 100%;
-  padding: 24px;
+  padding: 24px 24px 12px 24px;
   border: 1px solid ${({ theme }) => theme.table.border};
   background-color: ${({ theme }) => theme.background.light};
 

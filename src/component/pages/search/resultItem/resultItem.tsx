@@ -11,7 +11,7 @@ interface IResultProductsItemProps {
 }
 
 interface IResultCustomersItemProps {
-  id: number;
+  id: string;
   count: number;
   header: string;
   contact: string;
@@ -29,7 +29,7 @@ export const ResultCustomersItem: React.FC<IResultCustomersItemProps> = ({
 }) => {
   return (
     <StyledResultItem>
-      <a href={AppUrlEnum.CURRENT_PRODUCT + id}>{header}</a>
+      <a href={AppUrlEnum.CURRENT_CUSTOMER + id}>{header}</a>
       <p>
         #{count}, Contact: {contact}, Title: {title}, Phone: {phone}
       </p>
@@ -57,9 +57,9 @@ export const ResultProductsItem: React.FC<IResultProductsItemProps> = ({
 
 const StyledResultItem = styled.div`
   width: 100%;
-  & > p {
+  & p {
     font-size: 14px;
-    margin-top: 0px;
+    margin-top: 4px;
     color: ${({ theme }) => theme.text.second_light};
   }
 

@@ -10,22 +10,38 @@ import {
 import Footer from "../../common/footer/Footer";
 import { StandartTable } from "../../common/table/Table";
 import { ICustomersObject } from "../../types/commonTypes";
-import WrapperTables from "../../wrappers/WrapperTables/WrapperTables";
+import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";
 
 const Customers: React.FC = () => {
   const [customersData, setCustomersData] = useState<ICustomersObject[]>([]);
   const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageAmount, setPageAmount] = useState<number>(1);
+
+  const changePage = (page: number): void => {
+    console.log("change page", page);
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     const getData = async () => {
       const response = await tableService.getTableData<ICustomersObject>({
         url: PAGE_URLS.customers,
-        page: 1,
+        page: currentPage,
       });
+      console.log("response", response);
       if (response.status === 200) {
         setCustomersData(response.data.data);
-        console.log(response.data.data);
+        setCurrentPage(parseInt(response.data.currentPage));
+        setPageAmount(response.data.totalPages);
+        console.log(
+          response.data.data,
+          "currentPage",
+          response.data.currentPage,
+          "totalPage",
+          response.data.totalPages
+        );
       } else {
         setError(true);
       }
@@ -37,7 +53,7 @@ const Customers: React.FC = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [currentPage, pageAmount]);
   return (
     <WrapperTables
       isLoading={loading}
@@ -51,8 +67,8 @@ const Customers: React.FC = () => {
           <StandartTable img={true}>
             <thead>
               <th></th>
-              {HEADERS_SET.customers.map((item) => (
-                <th>{item}</th>
+              {HEADERS_SET.customers.map((item, index) => (
+                <th key={index}>{item}</th>
               ))}
             </thead>
             <tbody>
@@ -61,12 +77,12 @@ const Customers: React.FC = () => {
                   <tr key={object.id}>
                     <td data-label={""}>
                       <img
-                        src={CELL_IMG_URL(object.name.replace(" ", "-"))}
+                        src={CELL_IMG_URL(object.name)}
                         alt="imageCell.svg"
                       />
                     </td>
                     <td data-label={HEADERS_SET.customers[0]}>
-                      <Link to={AppUrlEnum.CURRENT_SUPPLIER + object.id}>
+                      <Link to={AppUrlEnum.CURRENT_CUSTOMER + object.id}>
                         {object.company}
                       </Link>
                     </td>
@@ -84,9 +100,14 @@ const Customers: React.FC = () => {
               })}
             </tbody>
           </StandartTable>
-          <Footer currentPage={1} totalPages={8} />
+          <Footer
+            currentPage={currentPage}
+            totalPages={pageAmount}
+            handleChangePage={changePage}
+          />
         </>
       )}
+      {!customersData && <p>Content not loaded! Try again...</p>}
     </WrapperTables>
   );
 };

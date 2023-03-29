@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import WrapperModal from "../../../wrappers/wrapperModal/WrapperModal";
 
 const LinksMenu: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -14,23 +15,33 @@ const LinksMenu: React.FC = () => {
         <span className="material-symbols-outlined">more_vert</span>
       </StyledButtonMin>
       {isActive && (
-        <StyledContent>
-          <a href="https://blog.cloudflare.com/introducing-d1/" target="_blank">
-            <span className="material-symbols-outlined">link</span>Introducing
-            D1
-          </a>
-          <a href="https://www.sqlite.org/lang.html" target="_blank">
-            <span className="material-symbols-outlined">link</span>SQLite SQL
-            Flavour
-          </a>
-          <a
-            href="https://developers.cloudflare.com/workers/learning/using-durable-objects/"
-            target="_blank"
-          >
-            <span className="material-symbols-outlined">link</span>Durable
-            Objects
-          </a>
-        </StyledContent>
+        <WrapperModal
+          top={58}
+          width={192}
+          height={122}
+          backClickHandler={() => setIsActive(false)}
+        >
+          <StyledContent>
+            <a
+              href="https://blog.cloudflare.com/introducing-d1/"
+              target="_blank"
+            >
+              <span className="material-symbols-outlined">link</span>Introducing
+              D1
+            </a>
+            <a href="https://www.sqlite.org/lang.html" target="_blank">
+              <span className="material-symbols-outlined">link</span>SQLite SQL
+              Flavour
+            </a>
+            <a
+              href="https://developers.cloudflare.com/workers/learning/using-durable-objects/"
+              target="_blank"
+            >
+              <span className="material-symbols-outlined">link</span>Durable
+              Objects
+            </a>
+          </StyledContent>
+        </WrapperModal>
       )}
     </StyledLinksMenu>
   );
@@ -87,10 +98,11 @@ const StyledButtonMin = styled.button<{ active: boolean }>`
 `;
 
 const StyledContent = styled.div`
-  position: absolute;
-  width: 193.25px;
-  top: 58px;
-  right: 1px;
+  /* position: absolute; */
+  /* width: 193.25px; */
+  /* top: 58px; */
+  /* right: 1px; */
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

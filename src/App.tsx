@@ -12,11 +12,11 @@ import RoutesApp from "./component/routes/RoutesApp";
 function App() {
   const [isActiveSidebar, toggleSidebar] = useState<boolean>(true);
   return (
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <RoutesApp />
-      </ThemeProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <RoutesApp />
+    </ThemeProvider>
+    // </React.StrictMode>
   );
 }
 
