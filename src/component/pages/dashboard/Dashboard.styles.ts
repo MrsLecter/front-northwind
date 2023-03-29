@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const StyledDashboard = styled.div`
   width: 100%;
-  height: 100%;
   padding: 48px 48px 24px 48px;
   background-color: ${({ theme }) => theme.background.grey};
 `;
@@ -36,6 +35,7 @@ export const StyledInfo = styled.div`
 
 export const StyledActivityLog = styled.div`
   width: 100%;
+  margin-bottom: 24px;
 `;
 
 export const StyledActivityHeader = styled.div`

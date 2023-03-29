@@ -13,8 +13,6 @@ interface IWrapperTables {
 const WrapperTables: React.FC<IWrapperTables> = ({
   children,
   mainHeader,
-  currentPage = 1,
-  maxPages = 1,
   isLoading = true,
   isError,
 }) => {

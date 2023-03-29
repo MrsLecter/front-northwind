@@ -21,7 +21,7 @@ export const DataObjectRow: React.FC<IDataObjectRowProps> = ({
 interface IDataObjectLinkProps {
   data: [string, string | number];
   link: string | number;
-  handleChange: () => void;
+  handleChange?: () => void;
 }
 
 export const DataObjectLink: React.FC<IDataObjectLinkProps> = ({
