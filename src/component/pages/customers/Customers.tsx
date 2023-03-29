@@ -10,6 +10,7 @@ import {
 import Footer from "../../common/footer/Footer";
 import { StandartTable } from "../../common/table/Table";
 import { ICustomersObject } from "../../types/commonTypes";
+import apiHandler from "../../utils/loggingProxy";
 import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";
 
 const Customers: React.FC = () => {
@@ -19,33 +20,19 @@ const Customers: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageAmount, setPageAmount] = useState<number>(1);
 
-  const changePage = (page: number): void => {
-    console.log("change page", page);
-    setCurrentPage(page);
-  };
-
   useEffect(() => {
     const getData = async () => {
-      const response = await tableService.getTableData<ICustomersObject>({
-        url: PAGE_URLS.customers,
-        page: currentPage,
+      const response = await apiHandler.getTableData<ICustomersObject>({
+        pageUrl: PAGE_URLS.customers,
+        pageNumber: currentPage,
       });
-      console.log("response", response);
       if (response.status === 200) {
         setCustomersData(response.data.data);
         setCurrentPage(parseInt(response.data.currentPage));
         setPageAmount(response.data.totalPages);
-        console.log(
-          response.data.data,
-          "currentPage",
-          response.data.currentPage,
-          "totalPage",
-          response.data.totalPages
-        );
       } else {
         setError(true);
       }
-      console.log(response);
     };
     setLoading(true);
     getData();
@@ -103,7 +90,7 @@ const Customers: React.FC = () => {
           <Footer
             currentPage={currentPage}
             totalPages={pageAmount}
-            handleChangePage={changePage}
+            handleChangePage={setCurrentPage}
           />
         </>
       )}

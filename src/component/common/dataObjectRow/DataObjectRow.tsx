@@ -21,19 +21,19 @@ export const DataObjectRow: React.FC<IDataObjectRowProps> = ({
 interface IDataObjectLinkProps {
   data: [string, string | number];
   link: string | number;
+  handleChange: () => void;
 }
 
 export const DataObjectLink: React.FC<IDataObjectLinkProps> = ({
   data,
   link,
+  handleChange,
 }) => {
   return (
-    <StyledObjectRow>
+    <StyledObjectRow onClick={handleChange}>
       <div>{data[0]}</div>
       <div>
-        <Link reloadDocument to={String(link)}>
-          {data[1]}
-        </Link>
+        <Link to={String(link)}>{data[1]}</Link>
       </div>
     </StyledObjectRow>
   );

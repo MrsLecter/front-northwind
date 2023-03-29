@@ -219,3 +219,9 @@ export interface IDashboardData {
   selectWhereQuery: number;
   selectJoinQuery: number;
 }
+
+export interface ILogRecord {
+  url: string;
+  param: number | string;
+  queries: ISQLQuery[];
+}

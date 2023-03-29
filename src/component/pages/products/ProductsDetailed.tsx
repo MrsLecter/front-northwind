@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import tableService from "../../../api/table-service";
-import {
-  IEmployeeInfo,
-  IEmployeeInfoCustom,
-  IProductInfo,
-  ISupplierInfo,
-  TIncomeData,
-} from "../../types/commonTypes";
+import { IProductInfo, TIncomeData } from "../../types/commonTypes";
 import { AppUrlEnum, DETAIL_URLS } from "../../../constants";
 import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
 import { getInfoFiltered } from "../../utils/functions";
@@ -22,6 +16,7 @@ import {
   DataObjectLink,
   DataObjectRow,
 } from "../../common/dataObjectRow/DataObjectRow";
+import apiHandler from "../../utils/loggingProxy";
 
 const ProductDetailed: React.FC = () => {
   const currentPath = location.pathname;
@@ -39,11 +34,11 @@ const ProductDetailed: React.FC = () => {
 
   useEffect(() => {
     const getDetailedInfo = async () => {
-      const response = await tableService.getDetailedInfo<IProductInfo>({
-        id: currentID,
-        url: DETAIL_URLS.product,
+      const response = await apiHandler.getDetailData<IProductInfo>({
+        idParam: currentID,
+        pageUrl: DETAIL_URLS.product,
       });
-      console.log("response", response);
+
       if (response.status === 200) {
         let responseObj = {
           id: response.data.data[0].supplierId,
@@ -63,7 +58,6 @@ const ProductDetailed: React.FC = () => {
         });
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
-        console.log("leftCol, rightCol", leftCol, rightCol);
       } else {
         setError(true);
       }
@@ -85,24 +79,28 @@ const ProductDetailed: React.FC = () => {
           <DetailedHeader header={currentHeader} />
           <StyledDetailedContainer>
             <StyledColumn>
-              {leftColumn.map((item) =>
-                item[0] === "Supplier" ? (
-                  <DataObjectLink
-                    link={AppUrlEnum.CURRENT_SUPPLIER + reportsTo}
-                    data={item}
-                  />
-                ) : (
-                  <DataObjectRow
-                    isPrice={item[0] === "Unit Price"}
-                    data={item}
-                  />
-                )
-              )}
+              {leftColumn &&
+                leftColumn.map((item, index) =>
+                  item[0] === "Supplier" ? (
+                    <DataObjectLink
+                      key={index}
+                      link={AppUrlEnum.CURRENT_SUPPLIER + reportsTo}
+                      data={item}
+                    />
+                  ) : (
+                    <DataObjectRow
+                      key={index}
+                      isPrice={item[0] === "Unit Price"}
+                      data={item}
+                    />
+                  )
+                )}
             </StyledColumn>
             <StyledColumn>
-              {rightColumn.map((item) => (
-                <DataObjectRow data={item} />
-              ))}
+              {rightColumn &&
+                rightColumn.map((item, index) => (
+                  <DataObjectRow key={index} data={item} />
+                ))}
             </StyledColumn>
           </StyledDetailedContainer>
 

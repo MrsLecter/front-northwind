@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ISQLQuery } from "../../types/commonTypes";
+import { ILogRecord, ISQLQuery } from "../../types/commonTypes";
 
 interface ISQLRecord {
-  logList: ISQLQuery[];
+  logList: ILogRecord[];
 }
 const logsSetting: ISQLRecord = {
   logList: [],
@@ -13,8 +13,19 @@ export const logsSlice = createSlice({
   initialState: logsSetting,
 
   reducers: {
-    setLogList(state, action: PayloadAction<{ sqlQueries: ISQLQuery[] }>) {
-      state.logList = state.logList.concat(action.payload.sqlQueries);
+    setLogList(
+      state,
+      action: PayloadAction<{
+        url: string;
+        param: number | string;
+        sqlQueries: ISQLQuery[];
+      }>
+    ) {
+      state.logList = state.logList.concat({
+        url: action.payload.url,
+        param: action.payload.param,
+        queries: action.payload.sqlQueries,
+      });
     },
   },
 });

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import tableService from "../../../api/table-service";
 import { Link } from "react-router-dom";
 import { AppUrlEnum, HEADERS_SET, PAGE_URLS } from "../../../constants";
 import { StandartTable } from "../../common/table/Table";
 import { IOrdersObject } from "../../types/commonTypes";
 import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";
 import Footer from "../../common/footer/Footer";
+import apiHandler from "../../utils/loggingProxy";
 
 const Orders: React.FC = () => {
   const [ordersData, setOrdersData] = useState<IOrdersObject[]>([]);
@@ -16,19 +16,17 @@ const Orders: React.FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await tableService.getTableData<IOrdersObject>({
-        url: PAGE_URLS.orders,
-        page: currentPage,
+      const response = await apiHandler.getTableData<IOrdersObject>({
+        pageUrl: PAGE_URLS.orders,
+        pageNumber: currentPage,
       });
       if (response.status === 200) {
         setOrdersData(response.data.data);
         setCurrentPage(parseInt(response.data.currentPage));
         setPageAmount(response.data.totalPages);
-        console.log(response.data.data);
       } else {
         setError(true);
       }
-      console.log(response);
     };
     setLoading(true);
     getData();
@@ -55,39 +53,40 @@ const Orders: React.FC = () => {
               ))}
             </thead>
             <tbody>
-              {ordersData.map((item) => {
-                return (
-                  <tr key={item.OrderId}>
-                    <td data-label={HEADERS_SET.orders_small[0]}>
-                      <Link to={AppUrlEnum.CURRENT_ORDER + item.OrderId}>
-                        {item.OrderId}
-                      </Link>
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[1]}>
-                      ${item.TotalProductsPrice.toFixed(2)}
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[2]}>
-                      {item.TotalProducts}
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[3]}>
-                      {item.TotalProductsItems}
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[4]}>
-                      {item.Shipped.substring(0, 10)}
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[5]}>
-                      {item.ShipName}
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[6]}>
-                      {item.City}
-                    </td>
-                    <td data-label={HEADERS_SET.orders_small[7]}>
-                      {item.Country}
-                    </td>
-                    <td></td>
-                  </tr>
-                );
-              })}
+              {ordersData &&
+                ordersData.map((item) => {
+                  return (
+                    <tr key={item.OrderId}>
+                      <td data-label={HEADERS_SET.orders_small[0]}>
+                        <Link to={AppUrlEnum.CURRENT_ORDER + item.OrderId}>
+                          {item.OrderId}
+                        </Link>
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[1]}>
+                        ${item.TotalProductsPrice.toFixed(2)}
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[2]}>
+                        {item.TotalProducts}
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[3]}>
+                        {item.TotalProductsItems}
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[4]}>
+                        {item.Shipped ? item.Shipped.substring(0, 10) : null}
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[5]}>
+                        {item.ShipName}
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[6]}>
+                        {item.City}
+                      </td>
+                      <td data-label={HEADERS_SET.orders_small[7]}>
+                        {item.Country}
+                      </td>
+                      <td></td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </StandartTable>
           <Footer

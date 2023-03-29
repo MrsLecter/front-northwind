@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import tableService from "../../../api/table-service";
-import {
-  IEmployeeInfo,
-  IEmployeeInfoCustom,
-  ISupplierInfo,
-  TIncomeData,
-} from "../../types/commonTypes";
+import { ISupplierInfo, TIncomeData } from "../../types/commonTypes";
 import { DETAIL_URLS } from "../../../constants";
 import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
 import { getInfoFiltered } from "../../utils/functions";
@@ -17,10 +11,8 @@ import {
   StyledDetailedContainer,
   StyledColumn,
 } from "../../common/detailedPageComponents/detailedPageComponents.styles";
-import {
-  DataObjectLink,
-  DataObjectRow,
-} from "../../common/dataObjectRow/DataObjectRow";
+import { DataObjectRow } from "../../common/dataObjectRow/DataObjectRow";
+import apiHandler from "../../utils/loggingProxy";
 
 const SupplierDetailed: React.FC = () => {
   const currentPath = location.pathname;
@@ -30,19 +22,15 @@ const SupplierDetailed: React.FC = () => {
   const [rightColumn, setRightColumn] = useState<[string, string | number][]>(
     []
   );
-  let reportsToId: number;
-
   const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
-  console.log(currentPath, currentHeader, currentID);
 
   useEffect(() => {
     const getDetailedInfo = async () => {
-      const response = await tableService.getDetailedInfo<ISupplierInfo>({
-        id: currentID,
-        url: DETAIL_URLS.supplier,
+      const response = await apiHandler.getDetailData<ISupplierInfo>({
+        idParam: currentID,
+        pageUrl: DETAIL_URLS.supplier,
       });
-      console.log("response", response);
       if (response.status === 200) {
         const [leftCol, rightCol] = getInfoFiltered({
           data: response.data.data[0],
@@ -50,7 +38,6 @@ const SupplierDetailed: React.FC = () => {
         });
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
-        console.log("leftCol, rightCol", leftCol, rightCol);
       } else {
         setError(true);
       }
@@ -72,14 +59,16 @@ const SupplierDetailed: React.FC = () => {
           <DetailedHeader header={currentHeader} />
           <StyledDetailedContainer>
             <StyledColumn>
-              {leftColumn.map((item) => (
-                <DataObjectRow data={item} />
-              ))}
+              {leftColumn &&
+                leftColumn.map((item, index) => (
+                  <DataObjectRow key={index} data={item} />
+                ))}
             </StyledColumn>
             <StyledColumn>
-              {rightColumn.map((item) => (
-                <DataObjectRow data={item} />
-              ))}
+              {rightColumn &&
+                rightColumn.map((item, index) => (
+                  <DataObjectRow key={index} data={item} />
+                ))}
             </StyledColumn>
           </StyledDetailedContainer>
 

@@ -26,6 +26,11 @@
     border-radius: 4px;
 }
 
+.rc-pagination-item {
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
 .rc-pagination::after{
     display: block;
     clear: both;
@@ -52,8 +57,21 @@
 .rc-pagination button{
     border: none;
     background-color: inherit;
-    
+    cursor: pointer;
 }
+
+
+
+.rc-pagination  li:hover {
+    cursor: pointer;
+    border: 1px solid #d1d5db;
+}
+
+.rc-pagination-item-active {
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
 .rc-pagination button:after {
     display: flex;
     content: '...';

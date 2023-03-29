@@ -1,16 +1,15 @@
-import { HEADERS_DETAILED_SET, HEADERS_SET } from "../../constants";
+import {
+  HEADERS_DETAILED_SET,
+  HEADERS_SET,
+  UPPERCASE_WORDS,
+} from "../../constants";
 import {
   ICustomerInfo,
-  ICustomersObject,
   IDashboardData,
-  IEmployeeInfo,
   IEmployeeInfoCustom,
-  IEmployeesObject,
+  ILogRecord,
   IOrderInfoCustom,
-  IOrdersObject,
-  IProductInfo,
   IProductInfoCustom,
-  IProductsObject,
   ISQLQuery,
   ISupplierInfo,
   TIncomeData,
@@ -49,7 +48,30 @@ export const getInfoFiltered = ({
   ];
 };
 
-export const getDashboardData = (data: ISQLQuery[]): IDashboardData => {
+const getLogListWithoutDuplicates = (logs: ILogRecord[]): ILogRecord[] => {
+  let logList = logs.slice(0);
+  let pointerOne = 0;
+  let pointerTwo = 1;
+
+  for (let i = 0; i < logList.length; i++) {
+    if (
+      logList[pointerOne].url === logList[pointerTwo].url &&
+      logList[pointerOne].param === logList[pointerTwo].param
+    ) {
+      logList.splice(pointerOne, 1);
+    } else {
+      pointerOne++;
+      pointerTwo++;
+    }
+  }
+  return logList;
+};
+
+export const getDashboardData = (
+  data: ILogRecord[]
+): { metrics: IDashboardData; logs: ISQLQuery[] } => {
+  const logList = getLogListWithoutDuplicates(data);
+  const pureLogs = [];
   const dashboardData: IDashboardData = {
     queryCount: 0,
     resultsCount: 0,
@@ -58,15 +80,29 @@ export const getDashboardData = (data: ISQLQuery[]): IDashboardData => {
     selectJoinQuery: 0,
   };
 
-  for (let log of data) {
-    dashboardData.resultsCount += log.resultsCount;
-    dashboardData.selectQuery += log.sqlType === "select" ? 1 : 0;
-    dashboardData.selectWhereQuery += log.sqlType === "select where" ? 1 : 0;
-    dashboardData.selectJoinQuery +=
-      log.sqlType === "select where left join" ? 1 : 0;
+  for (let record of logList) {
+    for (let log of record.queries) {
+      pureLogs.push(log);
+      dashboardData.queryCount++;
+      dashboardData.resultsCount += log.resultsCount;
+      dashboardData.selectQuery += log.sqlType === "select" ? 1 : 0;
+      dashboardData.selectWhereQuery += log.sqlType === "select where" ? 1 : 0;
+      dashboardData.selectJoinQuery +=
+        log.sqlType === "select where left join" ? 1 : 0;
+    }
   }
+  return { metrics: dashboardData, logs: pureLogs };
+};
 
-  dashboardData.queryCount = data.length;
-
-  return dashboardData;
+export const getFormattedQueryString = (str: string): string => {
+  const arr = str.split(" ");
+  let formattedStr = [];
+  for (let word of arr) {
+    if (UPPERCASE_WORDS.includes(word.toLowerCase())) {
+      formattedStr.push(word.toUpperCase().replaceAll('"', ""));
+    } else {
+      formattedStr.push(word.replaceAll('"', ""));
+    }
+  }
+  return formattedStr.join(" ");
 };

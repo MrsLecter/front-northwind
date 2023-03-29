@@ -183,3 +183,19 @@ export const HEADERS_PRODUCTS_IN_ORDER = [
   "TotalPrice",
   "Discount",
 ];
+
+export const UPPERCASE_WORDS = [
+  "select",
+  "from",
+  "limit",
+  "offset",
+  "where",
+  "as",
+  "on",
+  "and",
+  "group",
+  "order",
+  "left",
+  "join",
+  "asc",
+];

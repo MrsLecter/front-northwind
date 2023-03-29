@@ -5,6 +5,7 @@ import {
   ICustomersSearchObject,
   IProductsSearchObject,
 } from "../../types/commonTypes";
+import apiHandler from "../../utils/loggingProxy";
 import WrapperSearch from "../../wrappers/wrapperSearch/WrapperSearch";
 import {
   ResultCustomersItem,
@@ -30,13 +31,12 @@ const Search: React.FC = () => {
 
   const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      console.log("search", e.currentTarget.value);
       setLoading(true);
-      const searchResponse = await tableService.getSearchResult({
-        searchString: e.currentTarget.value,
+      const searchResponse = await apiHandler.getSearchData({
+        seachParam: e.currentTarget.value,
         searchTable: productTable ? "products" : "customers",
       });
-      console.log("search", searchResponse);
+
       if (searchResponse.status === 200) {
         if (productTable)
           setSearchProductsResuts(
@@ -94,6 +94,7 @@ const Search: React.FC = () => {
           searchProductsResults.map((item, index) => {
             return (
               <ResultProductsItem
+                key={item.id}
                 id={item.id}
                 count={index + 1}
                 header={item.name}

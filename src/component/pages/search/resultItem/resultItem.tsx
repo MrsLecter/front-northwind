@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { AppUrlEnum } from "../../../../constants";
 
@@ -47,7 +48,7 @@ export const ResultProductsItem: React.FC<IResultProductsItemProps> = ({
 }) => {
   return (
     <StyledResultItem>
-      <a href={AppUrlEnum.CURRENT_PRODUCT + id}>{header}</a>
+      <Link to={AppUrlEnum.CURRENT_PRODUCT + id}>{header}</Link>
       <p>
         #{count}, Quantity Per Unit: {quantity}, Price: {price}, Stock: {stock}
       </p>

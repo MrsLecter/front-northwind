@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import tableService from "../../../api/table-service";
 import { Link } from "react-router-dom";
 import {
   AppUrlEnum,
@@ -11,6 +10,7 @@ import { StandartTable } from "../../common/table/Table";
 import { IEmployeesObject } from "../../types/commonTypes";
 import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";
 import Footer from "../../common/footer/Footer";
+import apiHandler from "../../utils/loggingProxy";
 
 const Employees: React.FC = () => {
   const [employeesData, setEmployeesData] = useState<IEmployeesObject[]>([]);
@@ -21,19 +21,17 @@ const Employees: React.FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await tableService.getTableData<IEmployeesObject>({
-        url: PAGE_URLS.employees,
-        page: currentPage,
+      const response = await apiHandler.getTableData<IEmployeesObject>({
+        pageUrl: PAGE_URLS.employees,
+        pageNumber: currentPage,
       });
       if (response.status === 200) {
         setEmployeesData(response.data.data);
         setCurrentPage(parseInt(response.data.currentPage));
         setPageAmount(response.data.totalPages);
-        console.log(response.data.data);
       } else {
         setError(true);
       }
-      console.log(response);
     };
     setLoading(true);
     getData();
@@ -56,41 +54,42 @@ const Employees: React.FC = () => {
           <StandartTable img={true}>
             <thead>
               <th></th>
-              {HEADERS_SET.suppliers.map((item) => (
-                <th>{item}</th>
+              {HEADERS_SET.suppliers.map((item, index) => (
+                <th key={index}>{item}</th>
               ))}
             </thead>
             <tbody>
-              {employeesData.map((object) => {
-                return (
-                  <tr key={object.id}>
-                    <td data-label={""}>
-                      <img
-                        src={CELL_IMG_URL(object.name)}
-                        alt="imageCell.svg"
-                      />
-                    </td>
-                    <td data-label={HEADERS_SET.employees_small[0]}>
-                      <Link to={AppUrlEnum.CURRENT_EMPLOYEE + object.id}>
-                        {object.name}
-                      </Link>
-                    </td>
-                    <td data-label={HEADERS_SET.employees_small[1]}>
-                      {object.title}
-                    </td>
-                    <td data-label={HEADERS_SET.employees_small[2]}>
-                      {object.city}
-                    </td>
-                    <td data-label={HEADERS_SET.employees_small[3]}>
-                      {object.phone}
-                    </td>
-                    <td data-label={HEADERS_SET.employees_small[4]}>
-                      {object.country}
-                    </td>
-                    <td></td>
-                  </tr>
-                );
-              })}
+              {employeesData &&
+                employeesData.map((object) => {
+                  return (
+                    <tr key={object.id}>
+                      <td data-label={""}>
+                        <img
+                          src={CELL_IMG_URL(object.name)}
+                          alt="imageCell.svg"
+                        />
+                      </td>
+                      <td data-label={HEADERS_SET.employees_small[0]}>
+                        <Link to={AppUrlEnum.CURRENT_EMPLOYEE + object.id}>
+                          {object.name}
+                        </Link>
+                      </td>
+                      <td data-label={HEADERS_SET.employees_small[1]}>
+                        {object.title}
+                      </td>
+                      <td data-label={HEADERS_SET.employees_small[2]}>
+                        {object.city}
+                      </td>
+                      <td data-label={HEADERS_SET.employees_small[3]}>
+                        {object.phone}
+                      </td>
+                      <td data-label={HEADERS_SET.employees_small[4]}>
+                        {object.country}
+                      </td>
+                      <td></td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </StandartTable>
           <Footer

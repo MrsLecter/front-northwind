@@ -22,9 +22,11 @@ import {
   DataObjectRow,
 } from "../../common/dataObjectRow/DataObjectRow";
 import { data } from "autoprefixer";
+import apiHandler from "../../utils/loggingProxy";
 
 const EmployeeDetailed: React.FC = () => {
   const currentPath = location.pathname;
+  const [update, setUpdate] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<boolean>(false);
   const [leftColumn, setLeftColumn] = useState<[string, string | number][]>([]);
@@ -39,13 +41,12 @@ const EmployeeDetailed: React.FC = () => {
 
   useEffect(() => {
     const getDetailedInfo = async () => {
-      const response = await tableService.getDetailedInfo<IEmployeeInfo>({
-        id: currentID,
-        url: DETAIL_URLS.employee,
+      const response = await apiHandler.getDetailData<IEmployeeInfo>({
+        idParam: currentID,
+        pageUrl: DETAIL_URLS.employee,
       });
-      console.log("response", response);
+
       if (response.status === 200) {
-        console.log("currentHeader", currentHeader);
         const dataReponse = response.data.data[0];
         setReprtsTo(+dataReponse.ReportsTo);
         const newObj: IEmployeeInfoCustom = {
@@ -70,7 +71,6 @@ const EmployeeDetailed: React.FC = () => {
         });
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
-        console.log("leftCol, rightCol", leftCol, rightCol);
       } else {
         setError(true);
       }
@@ -81,7 +81,7 @@ const EmployeeDetailed: React.FC = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [currentPath]);
 
   return (
     <StyledDetailedData>
@@ -92,21 +92,22 @@ const EmployeeDetailed: React.FC = () => {
           <DetailedHeader header={currentHeader} />
           <StyledDetailedContainer>
             <StyledColumn>
-              {leftColumn.map((item) => (
-                <DataObjectRow data={item} />
-              ))}
+              {leftColumn &&
+                leftColumn.map((item) => <DataObjectRow data={item} />)}
             </StyledColumn>
             <StyledColumn>
-              {rightColumn.map((item) =>
-                item[0] === "Resports To" && item[1] !== null ? (
-                  <DataObjectLink
-                    link={AppUrlEnum.CURRENT_EMPLOYEE + reportsTo}
-                    data={item}
-                  />
-                ) : (
-                  <DataObjectRow data={item} />
-                )
-              )}
+              {rightColumn &&
+                rightColumn.map((item) =>
+                  item[0] === "Resports To" && item[1] !== null ? (
+                    <DataObjectLink
+                      handleChange={() => setUpdate(true)}
+                      link={AppUrlEnum.CURRENT_EMPLOYEE + reportsTo}
+                      data={item}
+                    />
+                  ) : (
+                    <DataObjectRow data={item} />
+                  )
+                )}
             </StyledColumn>
           </StyledDetailedContainer>
 

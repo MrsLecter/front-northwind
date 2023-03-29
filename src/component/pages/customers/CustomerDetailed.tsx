@@ -12,10 +12,7 @@ import {
   StyledDetailedContainer,
   StyledColumn,
 } from "../../common/detailedPageComponents/detailedPageComponents.styles";
-import {
-  DataObjectLink,
-  DataObjectRow,
-} from "../../common/dataObjectRow/DataObjectRow";
+import { DataObjectRow } from "../../common/dataObjectRow/DataObjectRow";
 
 const CustomerDetailed: React.FC = () => {
   const currentPath = location.pathname;
@@ -28,7 +25,6 @@ const CustomerDetailed: React.FC = () => {
 
   const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
-  console.log(currentPath, currentHeader, currentID);
 
   useEffect(() => {
     const getDetailedInfo = async () => {
@@ -36,16 +32,13 @@ const CustomerDetailed: React.FC = () => {
         id: currentID,
         url: DETAIL_URLS.customer,
       });
-      console.log("response", response);
       if (response.status === 200) {
-        console.log("currentHeader", currentHeader);
         const [leftCol, rightCol] = getInfoFiltered({
           data: response.data.data[0],
           info: "customer",
         });
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
-        console.log("leftCol, rightCol", leftCol, rightCol);
       } else {
         setError(true);
       }

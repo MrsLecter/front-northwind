@@ -39,7 +39,13 @@ class TableService {
     url: string;
   }): Promise<AxiosResponse<IDataInfoResponse<T>, any>> {
     try {
-      const response = await axios.get<IDataInfoResponse<T>>(url + id);
+      const response = await axios.get<IDataInfoResponse<T>>(url + id, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Max-Age": 300,
+        },
+      });
       console.log("detailed info" + url, response);
       return response;
     } catch (error: any) {

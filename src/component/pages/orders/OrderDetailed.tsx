@@ -31,6 +31,7 @@ import {
 import { data } from "autoprefixer";
 import { StandartTable } from "../../common/table/Table";
 import { Link } from "react-router-dom";
+import apiHandler from "../../utils/loggingProxy";
 
 const OrderDetailed: React.FC = () => {
   const currentPath = location.pathname;
@@ -45,19 +46,17 @@ const OrderDetailed: React.FC = () => {
 
   const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
-  console.log(currentPath, currentHeader, currentID);
 
   useEffect(() => {
     const getDetailedInfo = async () => {
-      const response = await tableService.getDetailedInfo<IOrderInfo>({
-        id: currentID,
-        url: DETAIL_URLS.order,
+      const response = await apiHandler.getDetailData<IOrderInfo>({
+        idParam: currentID,
+        pageUrl: DETAIL_URLS.order,
       });
       console.log("response", response);
       if (response.status === 200) {
         const responseInfo = response.data.data[0];
         setTableInfo(response.data.productsInfo!);
-        console.log("currentHeader", currentHeader);
         const responseObj: IOrderInfoCustom = {
           id: responseInfo.CustomerId,
           customerId: responseInfo.CustomerId,
@@ -83,7 +82,6 @@ const OrderDetailed: React.FC = () => {
         });
         setLeftColumn(leftCol);
         setRightColumn(rightCol);
-        console.log("leftCol, rightCol", leftCol, rightCol);
       } else {
         setError(true);
       }
@@ -98,26 +96,35 @@ const OrderDetailed: React.FC = () => {
 
   return (
     <StyledDetailedData>
-      {isLoading && (
-        <p>Loading detailed order ...</p>
-      )}
-      {isError && (
-        <p>
-          Error occured during request! Try again
-        </p>
-      )}
+      {isLoading && <p>Loading detailed order ...</p>}
+      {isError && <p>Error occured during request! Try again</p>}
       {!isLoading && !isError && (
         <>
           <DetailedHeader header={currentHeader} />
           <StyledDetailedContainer>
             <StyledColumn>
-              {leftColumn.map((item) =>
-                item[0] === "Customer Id" ? (
-                  <DataObjectLink
-                    link={AppUrlEnum.CURRENT_CUSTOMER + reportTo}
-                    data={item}
-                  />
-                ) : (
+              {leftColumn &&
+                leftColumn.map((item) =>
+                  item[0] === "Customer Id" ? (
+                    <DataObjectLink
+                      link={AppUrlEnum.CURRENT_CUSTOMER + reportTo}
+                      data={item}
+                    />
+                  ) : (
+                    <DataObjectRow
+                      data={item}
+                      isPrice={
+                        item[0] === "Total Price" ||
+                        item[0] === "Total Discount" ||
+                        item[0] === "Freight"
+                      }
+                    />
+                  )
+                )}
+            </StyledColumn>
+            <StyledColumn>
+              {rightColumn &&
+                rightColumn.map((item) => (
                   <DataObjectRow
                     data={item}
                     isPrice={
@@ -126,20 +133,7 @@ const OrderDetailed: React.FC = () => {
                       item[0] === "Freight"
                     }
                   />
-                )
-              )}
-            </StyledColumn>
-            <StyledColumn>
-              {rightColumn.map((item) => (
-                <DataObjectRow
-                  data={item}
-                  isPrice={
-                    item[0] === "Total Price" ||
-                    item[0] === "Total Discount" ||
-                    item[0] === "Freight"
-                  }
-                />
-              ))}
+                ))}
             </StyledColumn>
           </StyledDetailedContainer>
           <DetailedHeader header={"Products in order"} withIcon={false} />
@@ -150,31 +144,32 @@ const OrderDetailed: React.FC = () => {
               ))}
             </thead>
             <tbody>
-              {tableInfo.map((item) => {
-                return (
-                  <tr key={item.ProductId}>
-                    <td data-label={HEADERS_PRODUCTS_IN_ORDER[0]}>
-                      <Link to={AppUrlEnum.CURRENT_PRODUCT + item.ProductId}>
-                        {item.ProductName}
-                      </Link>
-                    </td>
-                    <td data-label={HEADERS_PRODUCTS_IN_ORDER[1]}>
-                      {item.Quantity}
-                    </td>
-                    <td data-label={HEADERS_PRODUCTS_IN_ORDER[2]}>
-                      ${item.OrderPrice.toFixed(2)}
-                    </td>
-                    <td data-label={HEADERS_PRODUCTS_IN_ORDER[3]}>
-                      ${item.TotalPrice.toFixed(2)}
-                    </td>
-                    <td data-label={HEADERS_PRODUCTS_IN_ORDER[4]}>
-                      {item.Discount}%
-                    </td>
+              {tableInfo &&
+                tableInfo.map((item) => {
+                  return (
+                    <tr key={item.ProductId}>
+                      <td data-label={HEADERS_PRODUCTS_IN_ORDER[0]}>
+                        <Link to={AppUrlEnum.CURRENT_PRODUCT + item.ProductId}>
+                          {item.ProductName}
+                        </Link>
+                      </td>
+                      <td data-label={HEADERS_PRODUCTS_IN_ORDER[1]}>
+                        {item.Quantity}
+                      </td>
+                      <td data-label={HEADERS_PRODUCTS_IN_ORDER[2]}>
+                        ${item.OrderPrice.toFixed(2)}
+                      </td>
+                      <td data-label={HEADERS_PRODUCTS_IN_ORDER[3]}>
+                        ${item.TotalPrice.toFixed(2)}
+                      </td>
+                      <td data-label={HEADERS_PRODUCTS_IN_ORDER[4]}>
+                        {item.Discount}%
+                      </td>
 
-                    <td></td>
-                  </tr>
-                );
-              })}
+                      <td></td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </StandartTable>
           <DetailedFooter />
