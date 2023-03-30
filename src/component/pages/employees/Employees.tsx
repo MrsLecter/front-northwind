@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  AppUrlEnum,
-  CELL_IMG_URL,
-  HEADERS_SET,
-  PAGE_URLS,
-} from "../../../constants";
+import { AppUrlEnum, CELL_IMG_URL, HEADERS_SET, PAGE_URLS } from "@const";
 import { StandartTable } from "../../common/table/Table";
 import { IEmployeesObject } from "../../types/commonTypes";
 import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";
@@ -18,6 +13,7 @@ const Employees: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageAmount, setPageAmount] = useState<number>(1);
+
 
   useEffect(() => {
     const getData = async () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import tableService from "../../../api/table-service";
 import { IProductInfo, TIncomeData } from "../../types/commonTypes";
-import { AppUrlEnum, DETAIL_URLS } from "../../../constants";
+import { AppUrlEnum, DETAIL_URLS } from "@const";
 import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
 import { getInfoFiltered } from "../../utils/functions";
 import {
@@ -30,7 +30,6 @@ const ProductDetailed: React.FC = () => {
 
   const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
-  console.log(currentPath, currentHeader, currentID);
 
   useEffect(() => {
     const getDetailedInfo = async () => {

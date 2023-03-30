@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ISupplierInfo, TIncomeData } from "../../types/commonTypes";
-import { DETAIL_URLS } from "../../../constants";
+import { DETAIL_URLS } from "@const";
 import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
 import { getInfoFiltered } from "../../utils/functions";
 import {

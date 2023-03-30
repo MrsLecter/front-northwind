@@ -9,11 +9,7 @@ import {
   IOrderInfoCustom,
   TIncomeData,
 } from "../../types/commonTypes";
-import {
-  AppUrlEnum,
-  DETAIL_URLS,
-  HEADERS_PRODUCTS_IN_ORDER,
-} from "../../../constants";
+import { AppUrlEnum, DETAIL_URLS, HEADERS_PRODUCTS_IN_ORDER } from "@const";
 import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
 import { getInfoFiltered } from "../../utils/functions";
 import {
@@ -53,7 +49,6 @@ const OrderDetailed: React.FC = () => {
         idParam: currentID,
         pageUrl: DETAIL_URLS.order,
       });
-      console.log("response", response);
       if (response.status === 200) {
         const responseInfo = response.data.data[0];
         setTableInfo(response.data.productsInfo!);

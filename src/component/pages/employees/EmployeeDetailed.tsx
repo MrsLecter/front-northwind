@@ -6,7 +6,7 @@ import {
   IEmployeeInfoCustom,
   TIncomeData,
 } from "../../types/commonTypes";
-import { AppUrlEnum, DETAIL_URLS } from "../../../constants";
+import { AppUrlEnum, DETAIL_URLS } from "@const";
 import { StyledDetailedData } from "../../common/detailedPageComponents/detailedPageComponents.styles";
 import { getInfoFiltered } from "../../utils/functions";
 import {
@@ -37,7 +37,10 @@ const EmployeeDetailed: React.FC = () => {
 
   const currentHeader = currentPath.split("/")[1] as TIncomeData;
   const currentID = currentPath.split("/")[2];
-  console.log(currentPath, currentHeader, currentID);
+
+  useEffect(() => {
+    setUpdate(false);
+  });
 
   useEffect(() => {
     const getDetailedInfo = async () => {

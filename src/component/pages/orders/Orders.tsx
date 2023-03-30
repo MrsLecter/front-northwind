@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppUrlEnum, HEADERS_SET, PAGE_URLS } from "../../../constants";
+import { AppUrlEnum, HEADERS_SET, PAGE_URLS } from "@const";
 import { StandartTable } from "../../common/table/Table";
 import { IOrdersObject } from "../../types/commonTypes";
 import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";

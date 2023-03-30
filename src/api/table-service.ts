@@ -4,7 +4,7 @@ import {
   IDataResponse,
   ISearchResult,
 } from "./axios-response-types";
-import { SEARCH_URL } from "../constants";
+import { SEARCH_URL } from "@const";
 
 class TableService {
   public async getTableData<T>({
@@ -18,7 +18,6 @@ class TableService {
       const response = await axios.get<IDataResponse<T>>(
         url + page + "?count=true"
       );
-      console.log("table info" + url, response);
 
       return response;
     } catch (error: any) {
@@ -46,7 +45,6 @@ class TableService {
           "Access-Control-Max-Age": 300,
         },
       });
-      console.log("detailed info" + url, response);
       return response;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
@@ -71,7 +69,6 @@ class TableService {
           ? SEARCH_URL.search_products
           : SEARCH_URL.search_customers;
       const response = await axios.get<ISearchResult>(searchUrl + searchString);
-      console.log("search info" + searchUrl, searchString);
       return response;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {

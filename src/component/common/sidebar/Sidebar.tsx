@@ -8,7 +8,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isActive }) => {
-  console.log("render sidebar");
   return (
     <StyledSidebar active={!!isActive || false}>
       <Logo />

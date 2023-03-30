@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { AppUrlEnum } from "../../../../constants";
+import { AppUrlEnum } from "@const";
 import { StyledButtonList, StyledList } from "./ButtonList.styles";
 
 const ButtonList: React.FC = () => {

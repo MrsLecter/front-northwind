@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  AppUrlEnum,
-  CELL_IMG_URL,
-  HEADERS_SET,
-  PAGE_URLS,
-} from "../../../constants";
+import { AppUrlEnum, CELL_IMG_URL, HEADERS_SET, PAGE_URLS } from "@const";
 import { ISuppliersObject } from "../../types/commonTypes";
 import { StandartTable } from "../../common/table/Table";
 import WrapperTables from "../../wrappers/wrapperTables/WrapperTables";

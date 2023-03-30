@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { AppUrlEnum } from "../../../../constants";
+import { AppUrlEnum } from "@const";
 
 interface IResultProductsItemProps {
   id: number;
@@ -9,6 +9,7 @@ interface IResultProductsItemProps {
   quantity: string;
   price: number;
   stock: number;
+  handleClick: () => void;
 }
 
 interface IResultCustomersItemProps {
@@ -18,6 +19,7 @@ interface IResultCustomersItemProps {
   contact: string;
   title: string;
   phone: string;
+  handleClick: () => void;
 }
 
 export const ResultCustomersItem: React.FC<IResultCustomersItemProps> = ({
@@ -27,10 +29,11 @@ export const ResultCustomersItem: React.FC<IResultCustomersItemProps> = ({
   contact,
   title,
   phone,
+  handleClick,
 }) => {
   return (
-    <StyledResultItem>
-      <a href={AppUrlEnum.CURRENT_CUSTOMER + id}>{header}</a>
+    <StyledResultItem onClick={handleClick}>
+      <Link to={AppUrlEnum.CURRENT_CUSTOMER + id}>{header}</Link>
       <p>
         #{count}, Contact: {contact}, Title: {title}, Phone: {phone}
       </p>
@@ -45,9 +48,10 @@ export const ResultProductsItem: React.FC<IResultProductsItemProps> = ({
   quantity,
   price,
   stock,
+  handleClick,
 }) => {
   return (
-    <StyledResultItem>
+    <StyledResultItem onClick={handleClick}>
       <Link to={AppUrlEnum.CURRENT_PRODUCT + id}>{header}</Link>
       <p>
         #{count}, Quantity Per Unit: {quantity}, Price: {price}, Stock: {stock}

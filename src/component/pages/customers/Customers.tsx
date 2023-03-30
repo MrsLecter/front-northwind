@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import tableService from "../../../api/table-service";
-import {
-  AppUrlEnum,
-  CELL_IMG_URL,
-  HEADERS_SET,
-  PAGE_URLS,
-} from "../../../constants";
+import { AppUrlEnum, CELL_IMG_URL, HEADERS_SET, PAGE_URLS } from "@const";
 import Footer from "../../common/footer/Footer";
 import { StandartTable } from "../../common/table/Table";
 import { ICustomersObject } from "../../types/commonTypes";

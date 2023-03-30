@@ -11,7 +11,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, isActive }) => {
-  console.log("render header");
   return (
     <StyledHeader active={isActive}>
       <ButtonMenu clickHandler={toggleSidebar} />

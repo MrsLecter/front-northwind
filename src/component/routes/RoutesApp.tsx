@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { AppUrlEnum, PAGE_URLS } from "../../constants";
+import { AppUrlEnum } from "@const";
 import Layout from "../layouts/Layout";
 import CustomerDetailed from "../pages/customers/CustomerDetailed";
 import Customers from "../pages/customers/Customers";

@@ -1,8 +1,4 @@
-import {
-  HEADERS_DETAILED_SET,
-  HEADERS_SET,
-  UPPERCASE_WORDS,
-} from "../../constants";
+import { HEADERS_DETAILED_SET, UPPERCASE_WORDS } from "@const";
 import {
   ICustomerInfo,
   IDashboardData,
@@ -40,7 +36,6 @@ export const getInfoFiltered = ({
       filteredFields.push([headerInfo[index], value]);
     }
   });
-  console.log(filteredFields);
   const middleOfFilteredFields = Math.ceil(fieldCount / 2);
   return [
     filteredFields.slice(0, middleOfFilteredFields),

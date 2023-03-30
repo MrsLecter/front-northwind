@@ -13,7 +13,6 @@ const Footer: React.FC<IFooterProps> = ({
   totalPages,
   handleChangePage,
 }) => {
-  console.log("Footer: totalPages", totalPages, "currentPage", currentPage);
   return (
     <StyledFooter>
       <Pagination

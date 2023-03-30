@@ -7,7 +7,7 @@ import {
   IDataResponse,
   ISearchResult,
 } from "../../api/axios-response-types";
-import { SEARCH_URL } from "../../constants";
+import { SEARCH_URL } from "@const";
 
 class ApiHandler {
   public async getTableData<T>({
@@ -94,32 +94,3 @@ class ApiHandler {
 
 const apiHandler = new ApiHandler();
 export default apiHandler;
-
-// export const getTableData = async <T>({
-//   pageUrl,
-//   pageNumber,
-// }: {
-//   pageUrl: string;
-//   pageNumber: number;
-// }) => {
-//   const state = appstore.getState();
-//   const { logList } = state.logsReducer;
-
-//   const currentResponse = await tableService.getTableData<T>({
-//     url: pageUrl,
-//     page: pageNumber,
-//   });
-
-//   if (currentResponse.status === 200) {
-//     appstore.dispatch(
-//       logsSlice.actions.setLogList({
-//         url: pageUrl,
-//         param: pageNumber,
-//         sqlQueries: currentResponse.data.sqlQueries,
-//       })
-//     );
-//     return currentResponse;
-//   } else {
-//     return currentResponse;
-//   }
-// };

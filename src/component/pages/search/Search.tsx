@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import tableService from "../../../api/table-service";
 import {
   ICustomersSearchObject,
   IProductsSearchObject,
@@ -13,8 +12,6 @@ import {
 } from "./resultItem/resultItem";
 
 const Search: React.FC = () => {
-  const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
   const [productTable, checkProductTable] = useState<boolean>(true);
   const [customersTable, checkCustomersTable] = useState<boolean>(false);
   const [searchProductsResults, setSearchProductsResuts] = useState<
@@ -23,6 +20,9 @@ const Search: React.FC = () => {
   const [searchCustomersResults, setSearchCustomersResuts] = useState<
     ICustomersSearchObject[]
   >([]);
+  const [update, setUpdate] = useState<boolean>(false);
+
+  useState(() => setUpdate(false));
 
   const toggleRadio = () => {
     checkCustomersTable(!customersTable);
@@ -31,7 +31,6 @@ const Search: React.FC = () => {
 
   const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      setLoading(true);
       const searchResponse = await apiHandler.getSearchData({
         seachParam: e.currentTarget.value,
         searchTable: productTable ? "products" : "customers",
@@ -46,9 +45,6 @@ const Search: React.FC = () => {
           setSearchCustomersResuts(
             searchResponse.data.data as ICustomersSearchObject[]
           );
-        setLoading(false);
-      } else {
-        setError(true);
       }
     }
   };
@@ -94,6 +90,7 @@ const Search: React.FC = () => {
           searchProductsResults.map((item, index) => {
             return (
               <ResultProductsItem
+                handleClick={() => setUpdate(true)}
                 key={item.id}
                 id={item.id}
                 count={index + 1}
@@ -108,6 +105,7 @@ const Search: React.FC = () => {
           searchCustomersResults.map((item, index) => {
             return (
               <ResultCustomersItem
+                handleClick={() => setUpdate(true)}
                 id={item.id}
                 contact={item.contact}
                 count={index + 1}

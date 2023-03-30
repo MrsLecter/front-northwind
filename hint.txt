@@ -3,9 +3,3 @@ https://css-tricks.com/snippets/css/system-font-stack/
 
 порядок свойств объекта сохраняется
 https://stackoverflow.com/questions/5525795/does-javascript-guarantee-object-property-order
-
-fix:
- -retortsto state
-
- сравнить данные постмана и сайта
- мобильное разрешение orders
