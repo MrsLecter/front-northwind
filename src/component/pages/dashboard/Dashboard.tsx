@@ -8,6 +8,7 @@ import {
   StyledActivityLog,
   StyledActivityHeader,
 } from "./Dashboard.styles";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const { logList } = useAppSelector((store) => store.logsReducer);

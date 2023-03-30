@@ -19,6 +19,11 @@ const StyledButtonMenu = styled.button`
   padding: 0px;
   border: none;
   background-color: ${({ theme }) => theme.background.light};
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 1023px) {
     display: block;

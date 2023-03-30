@@ -10,6 +10,7 @@ import {
 import { SEARCH_URL } from "@const";
 
 class ApiHandler {
+  
   public async getTableData<T>({
     pageUrl,
     pageNumber,

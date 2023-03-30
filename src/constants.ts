@@ -1,23 +1,3 @@
-export enum AppUrlEnum {
-  DASHBOARD = "/dashboard",
-  SUPPLIERS = "/suppliers",
-  CURRENT_SUPPLIER = "/supplier/",
-  PRODUCTS = "/products",
-  CURRENT_PRODUCT = "/product/",
-  ORDERS = "/orders",
-  CURRENT_ORDER = "/order/",
-  EMPLOYEES = "/employees",
-  CURRENT_EMPLOYEE = "/employee/",
-  CUSTOMERS = "/customers",
-  CURRENT_CUSTOMER = "/customer/",
-  SEARCH = "/search",
-}
-
-export const CELL_IMG_URL = (name: string) => {
-  const formattedName = name.replaceAll(" ", "-").replace(/[-]+[\w+]+[-]/, "-");
-  return `https://avatars.dicebear.com/v2/initials/${formattedName}.svg`;
-};
-
 const BASE_URL = "https://northwind-yulia.onrender.com";
 
 export const PAGE_URLS = {
@@ -39,6 +19,30 @@ export const DETAIL_URLS = {
 export const SEARCH_URL = {
   search_products: `${BASE_URL}/search/products/`,
   search_customers: `${BASE_URL}/search/customers/`,
+};
+
+export const COUNTRY_CODE_API_URL = `http://ip-api.com/json/${
+  BASE_URL.split("//")[1]
+}?fields=status,countryCode,region`;
+
+export enum AppUrlEnum {
+  DASHBOARD = "/dashboard",
+  SUPPLIERS = "/suppliers",
+  CURRENT_SUPPLIER = "/supplier/",
+  PRODUCTS = "/products",
+  CURRENT_PRODUCT = "/product/",
+  ORDERS = "/orders",
+  CURRENT_ORDER = "/order/",
+  EMPLOYEES = "/employees",
+  CURRENT_EMPLOYEE = "/employee/",
+  CUSTOMERS = "/customers",
+  CURRENT_CUSTOMER = "/customer/",
+  SEARCH = "/search",
+}
+
+export const CELL_IMG_URL = (name: string) => {
+  const formattedName = name.replaceAll(" ", "-").replace(/[-]+[\w+]+[-]/, "-");
+  return `https://avatars.dicebear.com/v2/initials/${formattedName}.svg`;
 };
 
 const SUPPLIERS_HEADERS = ["Company", "Contact", "Title", "City", "Country"];

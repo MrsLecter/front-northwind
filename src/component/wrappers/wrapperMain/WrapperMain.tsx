@@ -36,7 +36,6 @@ const StyledWrapperMain = styled.section<{ isActive: boolean }>`
 const StyledContainer = styled.div<{ active: boolean }>`
   position: relative;
   width: 100%;
-  /* width: ${(props) => (props.active ? "calc(100% - 240px)" : "100%")}; */
   margin-top: 60px;
   height: calc(100% - 55px);
   overflow: auto;

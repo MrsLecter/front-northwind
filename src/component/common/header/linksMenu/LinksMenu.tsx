@@ -69,6 +69,10 @@ const StyledButton = styled.button<{ active: boolean }>`
     active ? theme.text.lighted : theme.text.main};
   background-color: ${({ theme }) => theme.background.light};
 
+  &:hover {
+    cursor: pointer;
+  }
+
   span {
     color: ${({ theme, active }) =>
       active ? theme.text.lighted : theme.text.main};
@@ -87,6 +91,10 @@ const StyledButtonMin = styled.button<{ active: boolean }>`
   border: none;
   background-color: ${({ theme }) => theme.background.light};
 
+  &:hover {
+    cursor: pointer;
+  }
+
   span {
     color: ${({ theme, active }) =>
       active ? theme.text.lighted : theme.text.main};
@@ -98,10 +106,6 @@ const StyledButtonMin = styled.button<{ active: boolean }>`
 `;
 
 const StyledContent = styled.div`
-  /* position: absolute; */
-  /* width: 193.25px; */
-  /* top: 58px; */
-  /* right: 1px; */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -115,6 +119,7 @@ const StyledContent = styled.div`
   a:visited {
     text-decoration: none;
     color: ${({ theme }) => theme.text.main};
+    cursor: pointer;
   }
 
   a {
