@@ -8,7 +8,6 @@ import {
   StyledActivityLog,
   StyledActivityHeader,
 } from "./Dashboard.styles";
-import { useEffect } from "react";
 
 const Dashboard = () => {
   const { logList } = useAppSelector((store) => store.logsReducer);
@@ -36,9 +35,8 @@ const Dashboard = () => {
           <p>Activity log</p>
           <p>Explore the app and see metrics here</p>
         </StyledActivityHeader>
-        {logs.map((item, index) => (
-          <LogRecord key={index} log={item} />
-        ))}
+        {logs &&
+          logs.map((item, index) => <LogRecord key={index} log={item} />)}
       </StyledActivityLog>
     </StyledDashboard>
   );
