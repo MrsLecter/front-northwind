@@ -51,6 +51,7 @@ const getLogListWithoutDuplicates = (logs: ILogRecord[]): ILogRecord[] => {
   for (let i = 0; i <= logList.length - 1; i++) {
     console.log(logList.length);
     if (
+      logList.length > 1 &&
       logList[pointerOne].url === logList[pointerTwo].url &&
       logList[pointerOne].param === logList[pointerTwo].param
     ) {
