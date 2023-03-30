@@ -3,7 +3,7 @@ const theme = {
     darkblue: "#111827",
     blue: "#1e2837",
     light: "#ffffff",
-    grey: "#f8fbfb",
+    grey: "#f7fbfc",
   },
   text: {
     links: "#2563EB",

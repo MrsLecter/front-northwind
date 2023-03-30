@@ -50,8 +50,8 @@ const getLogListWithoutDuplicates = (logs: ILogRecord[]): ILogRecord[] => {
 
   for (let i = 0; i < logList.length; i++) {
     if (
-      logList[pointerOne].url === logList[pointerTwo].url &&
-      logList[pointerOne].param === logList[pointerTwo].param
+      logList[pointerOne].url! === logList[pointerTwo].url! &&
+      logList[pointerOne].param! === logList[pointerTwo].param!
     ) {
       logList.splice(pointerOne, 1);
     } else {
