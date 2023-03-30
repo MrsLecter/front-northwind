@@ -21,7 +21,7 @@ export const SEARCH_URL = {
   search_customers: `${BASE_URL}/search/customers/`,
 };
 
-export const METRICS_URL = `${BASE_URL}/metrics`;
+export const LOCATION_API_URL = "https://ipapi.co/json/";
 
 export enum AppUrlEnum {
   DASHBOARD = "/dashboard",

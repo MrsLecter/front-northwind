@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../hooks/reducers.hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/reducers.hook";
 import { getDashboardData } from "../../utils/functions";
 import LogRecord from "./logRecord/LogRecord";
 import {
@@ -9,33 +9,41 @@ import {
   StyledActivityHeader,
 } from "./Dashboard.styles";
 import axios from "axios";
+import { logsSlice } from "../../store/reducers/logsSlice";
 import { useEffect, useState } from "react";
-import { METRICS_URL } from "@const";
-import { IMetricsReponse, IServerLocation } from "../../types/commonTypes";
+import { ILocationData, ILocationResponse } from "../../types/commonTypes";
+import { LOCATION_API_URL } from "@const";
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch();
+  const { setLocation } = logsSlice.actions;
   const { logList, location } = useAppSelector((store) => store.logsReducer);
   const { metrics, logs } = getDashboardData(logList);
-  const [worker, setWorker] = useState<IServerLocation>({
-    colo: "",
+  const [worker, setWorker] = useState<ILocationData>({
+    city: "",
     country: "",
   });
 
   useEffect(() => {
     const getLocation = async () => {
-      const response = await axios.get<IMetricsReponse>(METRICS_URL);
+      const response = await axios.get<ILocationResponse>(LOCATION_API_URL);
+
       if (response.status === 200) {
-        setWorker({
-          colo: response.data.continentCode,
-          country: response.data.countryCode,
-        });
+        const obj = {
+          city: response.data.city,
+          country: response.data.country_code,
+        };
+        dispatch(setLocation(obj));
+        setWorker(obj);
+        return response;
       }
     };
-    if (!location.colo && !location.country) {
+
+    if (!location.city && !location.country) {
       getLocation();
     } else {
       setWorker({
-        colo: location.colo,
+        city: location.city,
         country: location.country,
       });
     }
@@ -46,7 +54,7 @@ const Dashboard = () => {
       <StyledInfoContainer>
         <StyledInfo>
           <p>Worker</p>
-          <p>Colo:&nbsp;{worker.colo}</p>
+          <p>City:&nbsp;{worker.city}</p>
           <p>Country:&nbsp;{worker.country}</p>
         </StyledInfo>
         <StyledInfo>

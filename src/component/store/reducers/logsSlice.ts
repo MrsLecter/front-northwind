@@ -1,17 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  ILogRecord,
-  IServerLocation,
-  ISQLQuery,
-} from "../../types/commonTypes";
+import { ILogRecord, ILocationData, ISQLQuery } from "../../types/commonTypes";
 
 interface ISQLRecord {
-  location: IServerLocation;
+  location: ILocationData;
   logList: ILogRecord[];
 }
 const logsSetting: ISQLRecord = {
   location: {
-    colo: "",
+    city: "",
     country: "",
   },
   logList: [],
@@ -37,14 +33,8 @@ export const logsSlice = createSlice({
       });
     },
 
-    setLocation(
-      state,
-      action: PayloadAction<{
-        colo: string;
-        country: string;
-      }>
-    ) {
-      state.location.colo = action.payload.colo;
+    setLocation(state, action: PayloadAction<ILocationData>) {
+      state.location.city = action.payload.city;
       state.location.country = action.payload.country;
     },
   },
