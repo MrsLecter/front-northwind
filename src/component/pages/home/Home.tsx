@@ -40,6 +40,12 @@ const StyledHome = styled.div`
   width: 100%;
   height: 420px;
   padding: 48px;
+
+  a,
+  a:hover,
+  a:visited {
+    text-decoration: none;
+  }
 `;
 
 const StyledGreeting = styled.p`
