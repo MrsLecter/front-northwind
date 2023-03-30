@@ -225,3 +225,18 @@ export interface ILogRecord {
   param: number | string;
   queries: ISQLQuery[];
 }
+
+export interface IMetricsReponse {
+  city: string;
+  continentCode: string;
+  continentName: string;
+  countryCode: string;
+  countryName: string;
+  ipAddress: string;
+  stateProv: string;
+}
+
+export interface IServerLocation {
+  colo: string;
+  country: string;
+}

@@ -48,15 +48,17 @@ const Products: React.FC = () => {
         <>
           <StandartTable>
             <thead>
-              {HEADERS_SET.products.map((item) => (
-                <th>{item}</th>
-              ))}
+              <tr>
+                {HEADERS_SET.products.map((item, index) => (
+                  <th key={index}>{item}</th>
+                ))}
+              </tr>
             </thead>
             <tbody>
               {productsData &&
-                productsData.map((object) => {
+                productsData.map((object, index) => {
                   return (
-                    <tr key={object.id}>
+                    <tr key={index}>
                       <td data-label={HEADERS_SET.products_small[0]}>
                         <Link to={AppUrlEnum.CURRENT_PRODUCT + object.id}>
                           {object.name}
@@ -74,7 +76,7 @@ const Products: React.FC = () => {
                       <td data-label={HEADERS_SET.products_small[4]}>
                         {object.orders}
                       </td>
-                      <td></td>
+                      <td />
                     </tr>
                   );
                 })}

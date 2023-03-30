@@ -60,13 +60,13 @@ const CustomerDetailed: React.FC = () => {
           <DetailedHeader header={currentHeader} />
           <StyledDetailedContainer>
             <StyledColumn>
-              {leftColumn.map((item) => (
-                <DataObjectRow data={item} />
+              {leftColumn.map((item, index) => (
+                <DataObjectRow key={index} data={item} />
               ))}
             </StyledColumn>
             <StyledColumn>
-              {rightColumn.map((item) => (
-                <DataObjectRow data={item} />
+              {rightColumn.map((item, index) => (
+                <DataObjectRow key={index} data={item} />
               ))}
             </StyledColumn>
           </StyledDetailedContainer>

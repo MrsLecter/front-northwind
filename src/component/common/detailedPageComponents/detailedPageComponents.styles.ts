@@ -42,6 +42,10 @@ export const StyledDetailedFooter = styled.div`
     color: ${({ theme }) => theme.text.light};
     background-color: ${({ theme }) => theme.button.red};
   }
+
+  button:hover {
+    cursor: pointer;
+  }
 `;
 
 export const StyledDetailedData = styled.div`

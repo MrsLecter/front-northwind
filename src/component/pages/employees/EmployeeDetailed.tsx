@@ -96,19 +96,22 @@ const EmployeeDetailed: React.FC = () => {
           <StyledDetailedContainer>
             <StyledColumn>
               {leftColumn &&
-                leftColumn.map((item) => <DataObjectRow data={item} />)}
+                leftColumn.map((item, index) => (
+                  <DataObjectRow key={index} data={item} />
+                ))}
             </StyledColumn>
             <StyledColumn>
               {rightColumn &&
-                rightColumn.map((item) =>
+                rightColumn.map((item, index) =>
                   item[0] === "Resports To" && item[1] !== null ? (
                     <DataObjectLink
+                      key={index}
                       handleChange={() => setUpdate(true)}
                       link={AppUrlEnum.CURRENT_EMPLOYEE + reportsTo}
                       data={item}
                     />
                   ) : (
-                    <DataObjectRow data={item} />
+                    <DataObjectRow key={index} data={item} />
                   )
                 )}
             </StyledColumn>

@@ -8,18 +8,46 @@ import {
   StyledActivityLog,
   StyledActivityHeader,
 } from "./Dashboard.styles";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { METRICS_URL } from "@const";
+import { IMetricsReponse, IServerLocation } from "../../types/commonTypes";
 
 const Dashboard = () => {
-  const { logList } = useAppSelector((store) => store.logsReducer);
+  const { logList, location } = useAppSelector((store) => store.logsReducer);
   const { metrics, logs } = getDashboardData(logList);
+  const [worker, setWorker] = useState<IServerLocation>({
+    colo: "",
+    country: "",
+  });
+
+  useEffect(() => {
+    const getLocation = async () => {
+      const response = await axios.get<IMetricsReponse>(METRICS_URL);
+      if (response.status === 200) {
+        setWorker({
+          colo: response.data.continentCode,
+          country: response.data.countryCode,
+        });
+      }
+    };
+    if (!location.colo && !location.country) {
+      getLocation();
+    } else {
+      setWorker({
+        colo: location.colo,
+        country: location.country,
+      });
+    }
+  }, []);
 
   return (
     <StyledDashboard>
       <StyledInfoContainer>
         <StyledInfo>
           <p>Worker</p>
-          <p>Colo:&nbsp;KBP</p>
-          <p>Country:&nbsp;UA</p>
+          <p>Colo:&nbsp;{worker.colo}</p>
+          <p>Country:&nbsp;{worker.country}</p>
         </StyledInfo>
         <StyledInfo>
           <p>SQL Metrics</p>

@@ -49,7 +49,6 @@ const getLogListWithoutDuplicates = (logs: ILogRecord[]): ILogRecord[] => {
   let pointerTwo = 1;
 
   for (let i = 0; i <= logList.length - 1; i++) {
-    console.log(logList.length);
     if (
       logList[pointerOne] &&
       logList[pointerTwo] &&

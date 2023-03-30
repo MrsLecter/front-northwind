@@ -48,10 +48,12 @@ const Suppliers: React.FC = () => {
         <>
           <StandartTable img={true}>
             <thead>
-              <th></th>
-              {HEADERS_SET.suppliers.map((item, index) => (
-                <th key={index}>{item}</th>
-              ))}
+              <tr>
+                <th />
+                {HEADERS_SET.suppliers.map((item, index) => (
+                  <th key={index}>{item}</th>
+                ))}
+              </tr>
             </thead>
             <tbody>
               {suppliersData &&
@@ -81,7 +83,7 @@ const Suppliers: React.FC = () => {
                       <td data-label={HEADERS_SET.suppliers_small[4]}>
                         {object.country}
                       </td>
-                      <td></td>
+                      <td />
                     </tr>
                   );
                 })}

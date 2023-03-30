@@ -48,15 +48,17 @@ const Customers: React.FC = () => {
         <>
           <StandartTable img={true}>
             <thead>
-              <th></th>
-              {HEADERS_SET.customers.map((item, index) => (
-                <th key={index}>{item}</th>
-              ))}
+              <tr>
+                <th />
+                {HEADERS_SET.customers.map((item, index) => (
+                  <th key={index}>{item}</th>
+                ))}
+              </tr>
             </thead>
             <tbody>
-              {customersData.map((object) => {
+              {customersData.map((object, index) => {
                 return (
-                  <tr key={object.id}>
+                  <tr key={index}>
                     <td data-label={""}>
                       <img
                         src={CELL_IMG_URL(object.name)}
@@ -76,7 +78,7 @@ const Customers: React.FC = () => {
                     <td data-label={HEADERS_SET.customers[4]}>
                       {object.country}
                     </td>
-                    <td></td>
+                    <td />
                   </tr>
                 );
               })}

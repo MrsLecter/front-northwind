@@ -14,7 +14,6 @@ const Employees: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageAmount, setPageAmount] = useState<number>(1);
 
-
   useEffect(() => {
     const getData = async () => {
       const response = await apiHandler.getTableData<IEmployeesObject>({
@@ -49,10 +48,12 @@ const Employees: React.FC = () => {
         <>
           <StandartTable img={true}>
             <thead>
-              <th></th>
-              {HEADERS_SET.suppliers.map((item, index) => (
-                <th key={index}>{item}</th>
-              ))}
+              <tr>
+                <th />
+                {HEADERS_SET.suppliers.map((item, index) => (
+                  <th key={index}>{item}</th>
+                ))}
+              </tr>
             </thead>
             <tbody>
               {employeesData &&
@@ -82,7 +83,7 @@ const Employees: React.FC = () => {
                       <td data-label={HEADERS_SET.employees_small[4]}>
                         {object.country}
                       </td>
-                      <td></td>
+                      <td />
                     </tr>
                   );
                 })}

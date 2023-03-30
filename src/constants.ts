@@ -21,9 +21,7 @@ export const SEARCH_URL = {
   search_customers: `${BASE_URL}/search/customers/`,
 };
 
-export const COUNTRY_CODE_API_URL = `http://ip-api.com/json/${
-  BASE_URL.split("//")[1]
-}?fields=status,countryCode,region`;
+export const METRICS_URL = `${BASE_URL}/metrics`;
 
 export enum AppUrlEnum {
   DASHBOARD = "/dashboard",
@@ -41,7 +39,8 @@ export enum AppUrlEnum {
 }
 
 export const CELL_IMG_URL = (name: string) => {
-  const formattedName = name.replaceAll(" ", "-").replace(/[-]+[\w+]+[-]/, "-");
+  const arr = name.split(" ");
+  const formattedName = arr[0][0] + "-" + arr[arr.length - 1][0];
   return `https://avatars.dicebear.com/v2/initials/${formattedName}.svg`;
 };
 

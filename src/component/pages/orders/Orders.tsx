@@ -48,9 +48,11 @@ const Orders: React.FC = () => {
         <>
           <StandartTable>
             <thead>
-              {HEADERS_SET.orders.map((header, index) => (
-                <th key={index}>{header}</th>
-              ))}
+              <tr>
+                {HEADERS_SET.orders.map((header, index) => (
+                  <th key={index}>{header}</th>
+                ))}
+              </tr>
             </thead>
             <tbody>
               {ordersData &&
@@ -83,7 +85,7 @@ const Orders: React.FC = () => {
                       <td data-label={HEADERS_SET.orders_small[7]}>
                         {item.Country}
                       </td>
-                      <td></td>
+                      <td />
                     </tr>
                   );
                 })}

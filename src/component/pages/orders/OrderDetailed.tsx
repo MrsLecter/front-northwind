@@ -99,14 +99,16 @@ const OrderDetailed: React.FC = () => {
           <StyledDetailedContainer>
             <StyledColumn>
               {leftColumn &&
-                leftColumn.map((item) =>
+                leftColumn.map((item, index) =>
                   item[0] === "Customer Id" ? (
                     <DataObjectLink
+                      key={index}
                       link={AppUrlEnum.CURRENT_CUSTOMER + reportTo}
                       data={item}
                     />
                   ) : (
                     <DataObjectRow
+                      key={index}
                       data={item}
                       isPrice={
                         item[0] === "Total Price" ||
@@ -119,8 +121,9 @@ const OrderDetailed: React.FC = () => {
             </StyledColumn>
             <StyledColumn>
               {rightColumn &&
-                rightColumn.map((item) => (
+                rightColumn.map((item, index) => (
                   <DataObjectRow
+                    key={index}
                     data={item}
                     isPrice={
                       item[0] === "Total Price" ||
@@ -134,9 +137,11 @@ const OrderDetailed: React.FC = () => {
           <DetailedHeader header={"Products in order"} withIcon={false} />
           <StandartTable>
             <thead>
-              {HEADERS_PRODUCTS_IN_ORDER.map((item) => (
-                <th>{item}</th>
-              ))}
+              <tr>
+                {HEADERS_PRODUCTS_IN_ORDER.map((item, index) => (
+                  <th key={index}>{item}</th>
+                ))}
+              </tr>
             </thead>
             <tbody>
               {tableInfo &&
@@ -161,7 +166,7 @@ const OrderDetailed: React.FC = () => {
                         {item.Discount}%
                       </td>
 
-                      <td></td>
+                      <td />
                     </tr>
                   );
                 })}
